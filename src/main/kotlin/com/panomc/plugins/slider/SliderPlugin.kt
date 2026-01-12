@@ -1,8 +1,8 @@
-package com.panomc.plugins.boilerplate
+package com.panomc.plugins.slider
 
 import com.panomc.platform.api.PanoPlugin
 
-class BoilerplatePlugin : PanoPlugin() {
+class SliderPlugin : PanoPlugin() {
     override suspend fun onStart() {
         logger.info("Starting...")
     }
