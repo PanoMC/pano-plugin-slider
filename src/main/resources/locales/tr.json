@@ -110,5 +110,11 @@
         "description": "{title} başlıklı slider öğesini silmek istediğinize emin misiniz? Bu işlem geri alınamaz."
       }
     }
+  },
+  "permissions": {
+    "MANAGE_SLIDER": {
+      "title": "Slider Yönetimi",
+      "description": "Temada gösterilecek slider öğelerini oluşturabilir, silebilir ve düzenleyebilir."
+    }
   }
 }

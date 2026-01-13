@@ -110,5 +110,11 @@
         "description": "Are you sure you want to delete the slider item titled {title}? This action cannot be undone."
       }
     }
+  },
+  "permissions": {
+    "MANAGE_SLIDER": {
+      "title": "Manage Slider",
+      "description": "Can create, delete, edit slider items which will be shown in theme."
+    }
   }
 }
