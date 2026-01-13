@@ -16,7 +16,7 @@
 <td class="align-middle text-center p-0" style="width: 40px; cursor: grab;">
   <i class="fas fa-grip-vertical text-muted"></i>
 </td>
-<td class="align-middle">
+<td class="align-middle clickable" on:click={() => onEditClick(slider.id)}>
   {#if slider.imageUrl}
     <div class="slider-preview">
       <img 
@@ -30,7 +30,7 @@
     </div>
   {/if}
 </td>
-<td class="align-middle">
+<td class="align-middle clickable" on:click={() => onEditClick(slider.id)}>
   <div class="fw-bold">{slider.title}</div>
   {#if slider.subtitle}
     <div class="text-muted small">{slider.subtitle}</div>
@@ -97,5 +97,8 @@
   .dragging {
     opacity: 0.4;
     background-color: var(--bs-light);
+  }
+  .clickable {
+    cursor: pointer;
   }
 </style>
