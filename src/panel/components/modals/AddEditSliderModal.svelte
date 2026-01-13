@@ -43,7 +43,7 @@
                   <div class="text-center text-muted">
                     <i class="fas fa-image fa-3x mb-2 opacity-50"></i>
                     <div class="fw-bold">{$_('components.modals.add-edit-slider.no-preview')}</div>
-                    <div class="small opacity-75 mt-1">{$_('pages.announcements.image-drop-placeholder') || 'Drag and drop or click to upload'}</div>
+                    <div class="small opacity-75 mt-1">{$_('components.modals.add-edit-slider.image-drop-placeholder')}</div>
                   </div>
                 {/if}
               </div>
