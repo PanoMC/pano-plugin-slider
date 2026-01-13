@@ -17,16 +17,18 @@ export default class PanoPluginSlider extends PanoPlugin {
 
     if (pano.isPanel) {
       pano.ui.page.register({
-        path: "/view/slider",
-        component: viewComponent(() => import("./panel/SliderPage.svelte")),
-        systemLayout: "ViewLayout",
+        path: '/view/slider',
+        component: viewComponent(() => import('./panel/SliderPage.svelte')),
+        systemLayout: 'ViewLayout',
         resetLayout: false,
+        permission: `pano.plugin.${pluginId}.manage.slider`,
       });
 
       pano.ui.view.themes.editMenu(async (items) => {
         items.push({
           href: '/view/slider',
-          text: 'plugins.pano-plugin-slider.pages.slider.title',
+          text: `plugins.${pluginId}.pages.slider.title`,
+          permission: `pano.plugin.${pluginId}.manage.slider`,
         });
         return items;
       });
