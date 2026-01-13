@@ -1,4 +1,4 @@
-import { PanoPlugin } from "@panomc/sdk";
+import { PanoPlugin, viewComponent } from "@panomc/sdk";
 import { derived } from "svelte/store";
 import { _ as i18n } from "@panomc/sdk/utils/language";
 
@@ -16,7 +16,20 @@ export default class PanoPluginSlider extends PanoPlugin {
     console.log("Hello world! It is enabled, environment:" + pano.isPanel)
 
     if (pano.isPanel) {
-      // here you can write your panel-related codes
+      pano.ui.page.register({
+        path: "/view/slider",
+        component: viewComponent(() => import("./panel/SliderPage.svelte")),
+        systemLayout: "ViewLayout",
+        resetLayout: false,
+      });
+
+      pano.ui.view.themes.editMenu(async (items) => {
+        items.push({
+          href: '/view/slider',
+          text: 'plugins.pano-plugin-slider.pages.slider.title',
+        });
+        return items;
+      });
     } else {
       // here you can write your theme-related codes
     }
