@@ -102,6 +102,7 @@
           "new-tab-help": "Bu bağlantıyı yeni bir tarayıcı sekmesinde mi açıyorsun?"
         },
         "no-preview": "Görsel önizlemesi yok",
+        "image-drop-placeholder": "Yüklemek için sürükleyip bırakın veya tıklayın",
         "image-format-info": "İzin verilenler: PNG, JPEG, GIF, WEBP. Maksimum: 5MB."
       },
       "confirm-delete-slider": {

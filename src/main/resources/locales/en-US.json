@@ -102,6 +102,7 @@
           "new-tab-help": "Open this link in a new browser tab?"
         },
         "no-preview": "No image preview",
+        "image-drop-placeholder": "Drag and drop or click to upload",
         "image-format-info": "Allowed: PNG, JPEG, GIF, WEBP. Maximum: 5MB."
       },
       "confirm-delete-slider": {
