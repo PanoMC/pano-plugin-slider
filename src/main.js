@@ -13,7 +13,7 @@ export default class PanoPluginSlider extends PanoPlugin {
   onLoad() {
     const pano = this.pano
 
-    console.log("Hello world! It is enabled, environment:" + pano.isPanel)
+    console.log("Slider plugin enabled, environment:" + pano.isPanel)
 
     if (pano.isPanel) {
       pano.ui.page.register({
@@ -31,7 +31,17 @@ export default class PanoPluginSlider extends PanoPlugin {
         return items;
       });
     } else {
-      // here you can write your theme-related codes
+      const sliderComponent = viewComponent(() => import("./theme/Slider.svelte"));
+
+      pano.ui.hook.register({
+        name: "page:home:top",
+        component: sliderComponent,
+      });
+
+      pano.ui.hook.register({
+        name: "page:top",
+        component: sliderComponent,
+      });
     }
   }
 
