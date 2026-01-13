@@ -104,7 +104,7 @@
 
 {#if shouldRender && sliderItems.length > 0}
   <div class:container={hookName === "page:top"}>
-    <div class="slider-wrapper mb-4">
+    <div class="slider-wrapper">
       <div
         id="panoMainSlider"
         bind:this={carouselElement}
@@ -208,12 +208,20 @@
   export async function load(event) {
     if (!event) return { sliderItems: [] };
 
+    let output = {}
+
     try {
       const res = await ApiUtil.get({
         path: "/api/slider/items",
         request: event,
       });
-      return {
+
+      if (res.settings.renderHook !== event.hookName || (res.settings.homepageOnly && event.url.pathname !== "/") || res.sliderItems.length === 0) {
+        output = { hookOptions: {invisible: true} }
+      }
+
+      output ={
+        ...output,
         sliderItems: res.sliderItems || [],
         settings: res.settings || {
           renderHook: "page:home:top",
@@ -227,7 +235,8 @@
       };
     } catch (err) {
       console.error("[Slider] Failed to fetch:", err);
-      return {
+      output =  {
+        ...output,
         sliderItems: [],
         settings: {
           renderHook: "page:home:top",
@@ -240,6 +249,8 @@
         },
       };
     }
+
+    return output
   }
 </script>
 
