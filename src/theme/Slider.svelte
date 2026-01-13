@@ -255,7 +255,6 @@
 </script>
 
 <script>
-  import { onMount, onCleanup } from "svelte";
   import { base, page } from "@panomc/sdk/svelte";
   import { _ } from "../main";
 
