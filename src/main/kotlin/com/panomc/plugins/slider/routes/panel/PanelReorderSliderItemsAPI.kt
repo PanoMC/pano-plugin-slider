@@ -10,7 +10,9 @@ import com.panomc.platform.model.RouteType
 import com.panomc.platform.model.Successful
 import com.panomc.plugins.slider.SliderPlugin
 import com.panomc.plugins.slider.db.dao.SliderDao
+import com.panomc.plugins.slider.log.ReorderedSliderItemsLog
 import com.panomc.plugins.slider.permission.ManageSliderPermission
+import io.vertx.core.json.JsonObject
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
 import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
@@ -51,10 +53,24 @@ class PanelReorderSliderItemsAPI(
         val ids = body.getJsonArray("ids").map { it.toString().toDouble().toLong() }
 
         val sqlClient = databaseManager.getSqlClient()
+
+        val oldItems = sliderDao.getAll(sqlClient).sortedBy { it.itemOrder }
+        val oldOrder = oldItems.map { it.id }
         
         ids.forEachIndexed { index, id ->
             sliderDao.updateOrder(id, index + 1, sqlClient)
         }
+
+        val userId = authProvider.getUserIdFromRoutingContext(context)
+        val username = databaseManager.userDao.getUsernameFromUserId(userId, sqlClient)!!
+
+        val changes = JsonObject()
+            .put("order", JsonObject().put("old", oldOrder).put("new", ids))
+
+        databaseManager.panelActivityLogDao.add(
+            ReorderedSliderItemsLog(userId, username, plugin.pluginId, changes),
+            sqlClient
+        )
 
         return Successful()
     }

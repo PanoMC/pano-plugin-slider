@@ -8,6 +8,7 @@ import com.panomc.platform.model.*
 import com.panomc.plugins.slider.SliderPlugin
 import com.panomc.plugins.slider.db.dao.SliderDao
 import com.panomc.plugins.slider.db.model.SliderItem
+import com.panomc.plugins.slider.log.UpdatedSliderItemLog
 import com.panomc.plugins.slider.permission.ManageSliderPermission
 import com.panomc.plugins.slider.util.ImageUtil
 import io.vertx.core.Handler
@@ -99,7 +100,40 @@ class PanelUpdateSliderItemAPI(
             updatedAt = System.currentTimeMillis()
         )
 
+        val changes = io.vertx.core.json.JsonObject()
+        if (existingItem.title != updatedItem.title) {
+            changes.put("title", io.vertx.core.json.JsonObject().put("old", existingItem.title).put("new", updatedItem.title))
+        }
+        if (existingItem.subtitle != updatedItem.subtitle) {
+            changes.put("subtitle", io.vertx.core.json.JsonObject().put("old", existingItem.subtitle).put("new", updatedItem.subtitle))
+        }
+        if (existingItem.imageUrl != updatedItem.imageUrl) {
+            changes.put("imageUrl", io.vertx.core.json.JsonObject().put("old", existingItem.imageUrl).put("new", updatedItem.imageUrl))
+        }
+        if (existingItem.linkUrl != updatedItem.linkUrl) {
+            changes.put("linkUrl", io.vertx.core.json.JsonObject().put("old", existingItem.linkUrl).put("new", updatedItem.linkUrl))
+        }
+        if (existingItem.openInNewTab != updatedItem.openInNewTab) {
+            changes.put("openInNewTab", io.vertx.core.json.JsonObject().put("old", existingItem.openInNewTab).put("new", updatedItem.openInNewTab))
+        }
+        if (existingItem.itemOrder != updatedItem.itemOrder) {
+            changes.put("itemOrder", io.vertx.core.json.JsonObject().put("old", existingItem.itemOrder).put("new", updatedItem.itemOrder))
+        }
+        if (existingItem.active != updatedItem.active) {
+            changes.put("active", io.vertx.core.json.JsonObject().put("old", existingItem.active).put("new", updatedItem.active))
+        }
+
         sliderDao.update(updatedItem, sqlClient)
+
+        val userId = authProvider.getUserIdFromRoutingContext(context)
+        val username = databaseManager.userDao.getUsernameFromUserId(userId, sqlClient)!!
+
+        val logTitle = if (updatedItem.title.isBlank()) "#${updatedItem.id}" else updatedItem.title
+
+        databaseManager.panelActivityLogDao.add(
+            UpdatedSliderItemLog(userId, username, plugin.pluginId, updatedItem.id, logTitle, changes),
+            sqlClient
+        )
 
         return Successful()
     }

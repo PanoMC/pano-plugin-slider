@@ -8,6 +8,7 @@ import com.panomc.platform.model.*
 import com.panomc.plugins.slider.SliderPlugin
 import com.panomc.plugins.slider.db.dao.SliderDao
 import com.panomc.plugins.slider.db.model.SliderItem
+import com.panomc.plugins.slider.log.CreatedSliderItemLog
 import com.panomc.plugins.slider.permission.ManageSliderPermission
 import com.panomc.plugins.slider.util.ImageUtil
 import io.vertx.core.Handler
@@ -87,7 +88,17 @@ class PanelAddSliderItemAPI(
 
         val sqlClient = databaseManager.getSqlClient()
         sliderDao.incrementAllOrders(sqlClient)
-        sliderDao.add(sliderItem, sqlClient)
+        val generatedId = sliderDao.add(sliderItem, sqlClient)
+
+        val userId = authProvider.getUserIdFromRoutingContext(context)
+        val username = databaseManager.userDao.getUsernameFromUserId(userId, sqlClient)!!
+
+        val logTitle = if (title.isBlank()) "#$generatedId" else title
+
+        databaseManager.panelActivityLogDao.add(
+            CreatedSliderItemLog(userId, username, plugin.pluginId, generatedId, logTitle),
+            sqlClient
+        )
 
         return Successful()
     }

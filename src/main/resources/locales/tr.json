@@ -116,5 +116,12 @@
       "title": "Slider Yönetimi",
       "description": "Temada gösterilecek slider öğelerini oluşturabilir, silebilir ve düzenleyebilir."
     }
+  },
+  "activity-logs": {
+    "CREATED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slider öğesini oluşturdu.",
+    "UPDATED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slider öğesini güncelledi.",
+    "DELETED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slider öğesini sildi.",
+    "UPDATED_SLIDER_SETTINGS": "<b>{username}</b> slider ayarlarını güncelledi.",
+    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> slider öğelerini yeniden sıraladı."
   }
 }

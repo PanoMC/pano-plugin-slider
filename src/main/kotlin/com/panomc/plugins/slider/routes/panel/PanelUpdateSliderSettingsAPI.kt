@@ -10,6 +10,7 @@ import com.panomc.platform.model.RouteType
 import com.panomc.platform.model.Successful
 import com.panomc.plugins.slider.SliderPlugin
 import com.panomc.plugins.slider.db.dao.SliderSettingsDao
+import com.panomc.plugins.slider.log.UpdatedSliderSettingsLog
 import com.panomc.plugins.slider.permission.ManageSliderPermission
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
@@ -81,6 +82,42 @@ class PanelUpdateSliderSettingsAPI(
         val captionStyle = body.getString("captionStyle")
 
         val sqlClient = databaseManager.getSqlClient()
+
+        val keys = listOf(
+            "renderHook", "homepageOnly", "autoSlide", "interval", "pauseOnHover",
+            "wrap", "indicators", "controls", "fade", "titleColor",
+            "subtitleColor", "captionBackground", "captionOpacity", "blurAmount", "captionStyle"
+        )
+
+        val oldSettings = mutableMapOf<String, String>()
+        for (key in keys) {
+            oldSettings[key] = sliderSettingsDao.getSetting(key, "", sqlClient)
+        }
+
+        val changes = io.vertx.core.json.JsonObject()
+        val newSettings = mapOf(
+            "renderHook" to renderHook,
+            "homepageOnly" to homepageOnly.toString(),
+            "autoSlide" to autoSlide.toString(),
+            "interval" to interval.toString(),
+            "pauseOnHover" to pauseOnHover.toString(),
+            "wrap" to wrap.toString(),
+            "indicators" to indicators.toString(),
+            "controls" to controls.toString(),
+            "fade" to fade.toString(),
+            "titleColor" to titleColor,
+            "subtitleColor" to subtitleColor,
+            "captionBackground" to captionBackground,
+            "captionOpacity" to captionOpacity.toString(),
+            "blurAmount" to blurAmount.toString(),
+            "captionStyle" to captionStyle
+        )
+
+        for ((key, newValue) in newSettings) {
+            if (oldSettings[key] != newValue) {
+                changes.put(key, io.vertx.core.json.JsonObject().put("old", oldSettings[key]).put("new", newValue))
+            }
+        }
         
         sliderSettingsDao.updateSetting("renderHook", renderHook, sqlClient)
         sliderSettingsDao.updateSetting("homepageOnly", homepageOnly.toString(), sqlClient)
@@ -97,6 +134,14 @@ class PanelUpdateSliderSettingsAPI(
         sliderSettingsDao.updateSetting("captionOpacity", captionOpacity.toString(), sqlClient)
         sliderSettingsDao.updateSetting("blurAmount", blurAmount.toString(), sqlClient)
         sliderSettingsDao.updateSetting("captionStyle", captionStyle, sqlClient)
+
+        val userId = authProvider.getUserIdFromRoutingContext(context)
+        val username = databaseManager.userDao.getUsernameFromUserId(userId, sqlClient)!!
+
+        databaseManager.panelActivityLogDao.add(
+            UpdatedSliderSettingsLog(userId, username, plugin.pluginId, changes),
+            sqlClient
+        )
 
         return Successful()
     }

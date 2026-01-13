@@ -116,5 +116,12 @@
       "title": "Manage Slider",
       "description": "Can create, delete, edit slider items which will be shown in theme."
     }
+  },
+  "activity-logs": {
+    "CREATED_SLIDER_ITEM": "<b>{username}</b> created the \"{title}\" slider item.",
+    "UPDATED_SLIDER_ITEM": "<b>{username}</b> updated the \"{title}\" slider item.",
+    "DELETED_SLIDER_ITEM": "<b>{username}</b> deleted the \"{title}\" slider item.",
+    "UPDATED_SLIDER_SETTINGS": "<b>{username}</b> updated slider settings.",
+    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> reordered slider items."
   }
 }

@@ -11,6 +11,7 @@ import com.panomc.platform.model.RouteType
 import com.panomc.platform.model.Successful
 import com.panomc.plugins.slider.SliderPlugin
 import com.panomc.plugins.slider.db.dao.SliderDao
+import com.panomc.plugins.slider.log.DeletedSliderItemLog
 import com.panomc.plugins.slider.permission.ManageSliderPermission
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
@@ -56,6 +57,16 @@ class PanelDeleteSliderItemAPI(
         }
 
         sliderDao.deleteById(id, sqlClient)
+
+        val userId = authProvider.getUserIdFromRoutingContext(context)
+        val username = databaseManager.userDao.getUsernameFromUserId(userId, sqlClient)!!
+
+        val logTitle = if (item.title.isBlank()) "#${item.id}" else item.title
+
+        databaseManager.panelActivityLogDao.add(
+            DeletedSliderItemLog(userId, username, plugin.pluginId, item.id, logTitle),
+            sqlClient
+        )
 
         return Successful()
     }
