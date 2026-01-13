@@ -1,3 +1,113 @@
 {
-  "hello-world": "Merhaba dünya!"
+  "toasts": {
+    "reorder-success": "Sıralama başarıyla güncellendi",
+    "settings-save-success": "Ayarlar başarıyla kaydedildi",
+    "item-created": "Slider öğesi başarıyla oluşturuldu",
+    "item-updated": "Slider öğesi başarıyla güncellendi",
+    "item-deleted": "Slider öğesi başarıyla silindi",
+    "save-failed": "Kaydedilirken bir hata oluştu: {error}",
+    "delete-failed": "Silinirken bir hata oluştu: {error}",
+    "image-size-error": "Görsel boyutu çok büyük (Maks 5MB)"
+  },
+  "buttons": {
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "create": "Oluştur",
+    "close": "Kapat",
+    "browse": "Göz At",
+    "visit": "Ziyaret Et"
+  },
+  "pages": {
+    "slider": {
+      "title": "Slider Yönetimi",
+      "description": "Temada görüntülenecek olan ana sayfa slider öğelerini buradan yönetebilirsiniz.",
+      "new-slider": "Yeni Slider Ekle",
+      "count": "{count} Slider Öğesi",
+      "filters": {
+        "all": "Tümü",
+        "active": "Aktif",
+        "inactive": "Pasif"
+      },
+      "table": {
+        "preview": "Önizleme",
+        "content": "İçerik",
+        "order": "Sıra",
+        "status": "Durum",
+        "status-active": "Aktif",
+        "status-inactive": "Pasif",
+        "created-at": "Oluşturulma",
+        "updated-at": "Güncelleme",
+        "actions": "İşlemler"
+      },
+      "settings": {
+        "title": "Genel Ayarlar",
+        "fields": {
+          "location": "Görüntüleme Konumu",
+          "location-help": "Slider nerede görüntülensin?",
+          "homepage-only": "Sadece Ana Sayfa",
+          "homepage-only-help": "Slider sadece ana sayfada mı görüntülensin?",
+          "auto-slide": "Otomatik Kaydır",
+          "auto-slide-help": "Görsellerin otomatik olarak değişmesini sağlar.",
+          "interval": "Geçiş Süresi (ms)",
+          "interval-help": "Görseller arasındaki geçiş süresi (milisaniye).",
+          "pause-on-hover": "Üzerine Gelince Duraklat",
+          "pause-on-hover-help": "İmleç üzerindeyken otomatik kaydırmayı durdurur.",
+          "wrap": "Döngü",
+          "wrap-help": "Slider sonuna geldiğinde başa döner.",
+          "indicators": "Noktalar",
+          "indicators-help": "Alt kısımdaki sayfa noktalarını gösterir.",
+          "controls": "Oklar",
+          "controls-help": "Yanlardaki ileri/geri oklarını gösterir.",
+          "fade": "Fade Efekti",
+          "fade-help": "Görsellerin sönerek geçmesini sağlar.",
+          "title-color": "Başlık Rengi",
+          "subtitle-color": "Alt Başlık Rengi",
+          "caption-background": "Yazı Arkaplan Rengi",
+          "caption-opacity": "Arkaplan Matlığı",
+          "blur-amount": "Bulanıklık (Blur) Miktarı",
+          "caption-style": "Yazı Alanı Stili",
+          "caption-style-none": "Hiçbiri",
+          "caption-style-solid": "Düz Renk",
+          "caption-style-glass": "Buzlu Cam (Glassmorphism)"
+        },
+        "locations": {
+          "home-top": "Ana Sayfa Üstü (Standart)",
+          "page-top": "Genel Sayfa Üstü (Navbar Altı)"
+        }
+      }
+    }
+  },
+  "components": {
+    "slider": {
+      "read-more": "Daha Fazla Bilgi"
+    },
+    "modals": {
+      "add-edit-slider": {
+        "add-title": "Yeni Slider Öğesi Oluştur",
+        "edit-title": "Slider Öğesini Düzenle",
+        "fields": {
+          "title": "Başlık",
+          "subtitle": "Alt Başlık",
+          "image-url": "Görsel Dosyası",
+          "link-url": "Yönlendirme Bağlantısı",
+          "open-in-new-tab": "Yeni sekmede aç",
+          "order": "Görüntüleme Sırası",
+          "status-help": "Bu öğe temada görüntülensin mi?"
+        },
+        "placeholders": {
+          "title": "Slider başlığını girin...",
+          "subtitle": "Opsiyonel alt başlık...",
+          "new-tab-help": "Bu bağlantıyı yeni bir tarayıcı sekmesinde mi açıyorsun?"
+        },
+        "no-preview": "Görsel önizlemesi yok",
+        "image-format-info": "İzin verilenler: PNG, JPEG, GIF, WEBP. Maksimum: 5MB."
+      },
+      "confirm-delete-slider": {
+        "title": "Slider Öğesini Sil",
+        "description": "{title} başlıklı slider öğesini silmek istediğinize emin misiniz? Bu işlem geri alınamaz."
+      }
+    }
+  }
 }

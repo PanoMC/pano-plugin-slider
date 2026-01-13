@@ -1,3 +1,113 @@
 {
-  "hello-world": "Hello world!"
+  "toasts": {
+    "reorder-success": "Order updated successfully",
+    "settings-save-success": "Settings saved successfully",
+    "item-created": "Slider item created successfully",
+    "item-updated": "Slider item updated successfully",
+    "item-deleted": "Slider item deleted successfully",
+    "save-failed": "An error occurred while saving: {error}",
+    "delete-failed": "An error occurred while deleting: {error}",
+    "image-size-error": "Image size is too large (Max 5MB)"
+  },
+  "buttons": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create",
+    "close": "Close",
+    "browse": "Browse",
+    "visit": "Visit"
+  },
+  "pages": {
+    "slider": {
+      "title": "Slider Management",
+      "description": "You can manage the homepage slider items shown in the theme from here.",
+      "new-slider": "Add New Slider",
+      "count": "{count} Slider Items",
+      "filters": {
+        "all": "All",
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "table": {
+        "preview": "Preview",
+        "content": "Content",
+        "order": "Order",
+        "status": "Status",
+        "status-active": "Active",
+        "status-inactive": "Inactive",
+        "created-at": "Created At",
+        "updated-at": "Updated At",
+        "actions": "Actions"
+      },
+      "settings": {
+        "title": "General Settings",
+        "fields": {
+          "location": "Display Location",
+          "location-help": "Where should the slider be rendered?",
+          "homepage-only": "Homepage Only",
+          "homepage-only-help": "Render slider only on the homepage?",
+          "auto-slide": "Auto Slide",
+          "auto-slide-help": "Enable automatic cycling of images.",
+          "interval": "Interval (ms)",
+          "interval-help": "Time delay between slides (in milliseconds).",
+          "pause-on-hover": "Pause on Hover",
+          "pause-on-hover-help": "Stop auto cycling when mouse is over slider.",
+          "wrap": "Continuous Loop",
+          "wrap-help": "Return to start after reaching the last slide.",
+          "indicators": "Indicators",
+          "indicators-help": "Show the navigation dots at the bottom.",
+          "controls": "Controls",
+          "controls-help": "Show next/previous arrows on the sides.",
+          "fade": "Fade Effect",
+          "fade-help": "Use a crossfade transition between slides.",
+          "title-color": "Title Color",
+          "subtitle-color": "Subtitle Color",
+          "caption-background": "Caption Backdrop Color",
+          "caption-opacity": "Backdrop Opacity",
+          "blur-amount": "Blur Intensity",
+          "caption-style": "Caption Style",
+          "caption-style-none": "None",
+          "caption-style-solid": "Solid Color",
+          "caption-style-glass": "Glassmorphism (Blur)"
+        },
+        "locations": {
+          "home-top": "Homepage Top (Standard)",
+          "page-top": "Global Page Top (After Navbar)"
+        }
+      }
+    }
+  },
+  "components": {
+    "slider": {
+      "read-more": "Read More"
+    },
+    "modals": {
+      "add-edit-slider": {
+        "add-title": "Create New Slider Item",
+        "edit-title": "Edit Slider Item",
+        "fields": {
+          "title": "Title",
+          "subtitle": "Subtitle",
+          "image-url": "Image File",
+          "link-url": "Link URL",
+          "open-in-new-tab": "Open in new tab",
+          "order": "Display Order",
+          "status-help": "Should this item be visible in the theme?"
+        },
+        "placeholders": {
+          "title": "Enter slider title...",
+          "subtitle": "Optional subtitle...",
+          "new-tab-help": "Open this link in a new browser tab?"
+        },
+        "no-preview": "No image preview",
+        "image-format-info": "Allowed: PNG, JPEG, GIF, WEBP. Maximum: 5MB."
+      },
+      "confirm-delete-slider": {
+        "title": "Delete Slider Item",
+        "description": "Are you sure you want to delete the slider item titled {title}? This action cannot be undone."
+      }
+    }
+  }
 }

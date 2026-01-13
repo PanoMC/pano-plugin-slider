@@ -1,0 +1,118 @@
+package com.panomc.plugins.slider.routes.panel
+
+import com.panomc.platform.annotation.Endpoint
+import com.panomc.platform.auth.AuthProvider
+import com.panomc.platform.db.DatabaseManager
+import com.panomc.platform.error.PageNotFound
+import com.panomc.platform.model.*
+import com.panomc.plugins.slider.SliderPlugin
+import com.panomc.plugins.slider.db.dao.SliderDao
+import com.panomc.plugins.slider.db.model.SliderItem
+import com.panomc.plugins.slider.permission.ManageSliderPermission
+import com.panomc.plugins.slider.util.ImageUtil
+import io.vertx.core.Handler
+import io.vertx.ext.web.FileUpload
+import io.vertx.ext.web.RoutingContext
+import io.vertx.ext.web.handler.BodyHandler
+import io.vertx.ext.web.validation.RequestPredicate
+import io.vertx.ext.web.validation.ValidationHandler
+import io.vertx.ext.web.validation.builder.Parameters.param
+import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
+import io.vertx.json.schema.SchemaRepository
+import io.vertx.json.schema.common.dsl.Schemas.*
+import java.io.File
+
+@Endpoint
+class PanelUpdateSliderItemAPI(
+    private val plugin: SliderPlugin,
+    private val sliderDao: SliderDao
+) : PanelApi() {
+    override val paths = listOf(Path("/api/panel/slider/items/:id", RouteType.PUT))
+
+    private val authProvider by lazy {
+        plugin.applicationContext.getBean(AuthProvider::class.java)
+    }
+
+    private val databaseManager by lazy {
+        plugin.applicationContext.getBean(DatabaseManager::class.java)
+    }
+
+    override fun bodyHandler(): Handler<RoutingContext> =
+        BodyHandler.create()
+            .setDeleteUploadedFilesOnEnd(true)
+            .setBodyLimit(5 * 1024 * 1024)
+
+    override fun getValidationHandler(schemaRepository: SchemaRepository): ValidationHandler =
+        ValidationHandlerBuilder.create(schemaRepository)
+            .pathParameter(param("id", numberSchema()))
+            .body(
+                io.vertx.ext.web.validation.builder.Bodies.multipartFormData(
+                    objectSchema()
+                        .optionalProperty("title", stringSchema())
+                        .optionalProperty("subtitle", stringSchema())
+                        .optionalProperty("linkUrl", stringSchema())
+                        .optionalProperty("openInNewTab", booleanSchema())
+                        .requiredProperty("itemOrder", numberSchema())
+                        .requiredProperty("active", booleanSchema())
+                )
+            )
+            .predicate(RequestPredicate.BODY_REQUIRED)
+            .build()
+
+    override suspend fun handle(context: RoutingContext): Result {
+        authProvider.requirePermission(ManageSliderPermission(), context)
+
+        val parameters = getParameters(context)
+        val id = parameters.pathParameter("id").long
+        val data = parameters.body().jsonObject
+        val fileUploads = context.fileUploads()
+
+        val sqlClient = databaseManager.getSqlClient()
+        val existingItem = sliderDao.getById(id, sqlClient) ?: throw PageNotFound()
+
+        val fileUpload = fileUploads.firstOrNull { it.name() == "image" }
+        
+        var imageFileName = existingItem.imageFileName
+        var imageUrl = existingItem.imageUrl
+
+        if (fileUpload != null) {
+            // Delete old file
+            if (existingItem.imageFileName != null) {
+                File(plugin.uploadsDir, existingItem.imageFileName).delete()
+                File(File(plugin.uploadsDir, "thumbnails"), existingItem.imageFileName).delete()
+            }
+            imageFileName = saveUploadedFile(fileUpload)
+            imageUrl = "/api/slider/items/image/$imageFileName"
+        }
+
+        val updatedItem = SliderItem(
+            id = id,
+            title = data.getString("title") ?: "",
+            subtitle = data.getString("subtitle"),
+            imageUrl = imageUrl,
+            imageFileName = imageFileName,
+            linkUrl = data.getString("linkUrl") ?: "",
+            openInNewTab = data.getBoolean("openInNewTab") ?: existingItem.openInNewTab,
+            itemOrder = data.getInteger("itemOrder") ?: existingItem.itemOrder,
+            active = data.getBoolean("active") ?: existingItem.active,
+            createdAt = existingItem.createdAt,
+            updatedAt = System.currentTimeMillis()
+        )
+
+        sliderDao.update(updatedItem, sqlClient)
+
+        return Successful()
+    }
+
+    private fun saveUploadedFile(fileUpload: FileUpload): String {
+        val extension = fileUpload.fileName().split(".").last()
+        val fileName = "${System.currentTimeMillis()}-${fileUpload.uploadedFileName().split(File.separator).last()}.$extension"
+        val destFile = File(plugin.uploadsDir, fileName)
+
+        File(fileUpload.uploadedFileName()).copyTo(destFile, true)
+
+        ImageUtil.generateThumbnail(destFile, File(plugin.uploadsDir, "thumbnails"))
+
+        return fileName
+    }
+}

@@ -1,10 +1,29 @@
 package com.panomc.plugins.slider
 
 import com.panomc.platform.api.PanoPlugin
+import com.panomc.platform.api.PluginDatabaseManager
+import java.io.File
 
 class SliderPlugin : PanoPlugin() {
+    private val pluginDatabaseManager by lazy {
+        applicationContext.getBean(PluginDatabaseManager::class.java)
+    }
+
+    val uploadsDir: File by lazy {
+        File(pluginDataFolder, "uploads")
+    }
+
     override suspend fun onStart() {
         logger.info("Starting...")
+        try {
+            pluginDatabaseManager.initialize(this)
+
+            if (!uploadsDir.exists()) {
+                uploadsDir.mkdirs()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override suspend fun onEnable() {
@@ -14,7 +33,11 @@ class SliderPlugin : PanoPlugin() {
     override suspend fun onUninstall() {
         logger.info("Uninstalling...")
 
-        // add some cleanup codes for your data used in plugin before uninstalling
+        pluginDatabaseManager.uninstall(this)
+
+        if (uploadsDir.exists()) {
+            uploadsDir.deleteRecursively()
+        }
     }
 }
 
