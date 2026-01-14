@@ -93,13 +93,11 @@
           "image-url": "Image File",
           "link-url": "Link URL",
           "open-in-new-tab": "Open in new tab",
-          "order": "Display Order",
-          "status-help": "Should this item be visible in the theme?"
+          "order": "Display Order"
         },
         "placeholders": {
           "title": "Enter slider title...",
-          "subtitle": "Optional subtitle...",
-          "new-tab-help": "Open this link in a new browser tab?"
+          "subtitle": "Optional subtitle..."
         },
         "no-preview": "No image preview",
         "image-drop-placeholder": "Drag and drop or click to upload",

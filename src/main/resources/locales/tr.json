@@ -93,13 +93,11 @@
           "image-url": "Görsel Dosyası",
           "link-url": "Yönlendirme Bağlantısı",
           "open-in-new-tab": "Yeni sekmede aç",
-          "order": "Görüntüleme Sırası",
-          "status-help": "Bu öğe temada görüntülensin mi?"
+          "order": "Görüntüleme Sırası"
         },
         "placeholders": {
           "title": "Slider başlığını girin...",
-          "subtitle": "Opsiyonel alt başlık...",
-          "new-tab-help": "Bu bağlantıyı yeni bir tarayıcı sekmesinde mi açıyorsun?"
+          "subtitle": "Opsiyonel alt başlık..."
         },
         "no-preview": "Görsel önizlemesi yok",
         "image-drop-placeholder": "Yüklemek için sürükleyip bırakın veya tıklayın",

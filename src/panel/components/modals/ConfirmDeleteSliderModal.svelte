@@ -13,24 +13,24 @@
           data-bs-dismiss="modal"
           on:click={hide}></button>
       </div>
-      <div class="modal-body text-center py-4">
+      <div class="modal-body text-center">
         <div class="mb-3">
-          <i class="fas fa-exclamation-triangle text-danger fa-3x"></i>
+          <i class="fas fa-question-circle fa-3x"></i>
         </div>
         <p class="mb-0">
           {@html $_('components.modals.confirm-delete-slider.description', { values: { title: `<strong>${$slider.title}</strong>` } })}
         </p>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer flex-nowrap">
         <button
-          class="btn btn-secondary w-100"
+          class="btn btn-link col-6"
           type="button"
           on:click={hide}
           disabled={loading}>
           {$_('buttons.cancel')}
         </button>
         <button
-          class="btn btn-danger w-100"
+          class="btn btn-danger col-6"
           type="button"
           on:click={onConfirm}
           disabled={loading}>
