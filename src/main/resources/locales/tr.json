@@ -41,7 +41,8 @@
         "status-inactive": "Pasif",
         "created-at": "Oluşturulma",
         "updated-at": "Güncelleme",
-        "actions": "İşlemler"
+        "actions": "İşlemler",
+        "view-details": "Detayları Gör"
       },
       "settings": {
         "title": "Genel Ayarlar",
@@ -81,7 +82,10 @@
   },
   "components": {
     "slider": {
-      "read-more": "Daha Fazla Bilgi"
+      "read-more": "Daha Fazla Bilgi",
+      "previous": "Önceki",
+      "next": "Sonraki",
+      "slide": "{index}. Slayt"
     },
     "modals": {
       "add-edit-slider": {

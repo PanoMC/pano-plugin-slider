@@ -41,7 +41,8 @@
         "status-inactive": "Inactive",
         "created-at": "Created At",
         "updated-at": "Updated At",
-        "actions": "Actions"
+        "actions": "Actions",
+        "view-details": "View Details"
       },
       "settings": {
         "title": "General Settings",
@@ -81,7 +82,10 @@
   },
   "components": {
     "slider": {
-      "read-more": "Read More"
+      "read-more": "Read More",
+      "previous": "Previous",
+      "next": "Next",
+      "slide": "Slide {index}"
     },
     "modals": {
       "add-edit-slider": {
