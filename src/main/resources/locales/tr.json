@@ -7,7 +7,8 @@
     "item-deleted": "Slider öğesi başarıyla silindi",
     "save-failed": "Kaydedilirken bir hata oluştu: {error}",
     "delete-failed": "Silinirken bir hata oluştu: {error}",
-    "image-size-error": "Görsel boyutu çok büyük (Maks 5MB)"
+    "image-size-error": "Görsel boyutu çok büyük (Maks 5MB)",
+    "image-type-error": "Geçersiz dosya türü (İzin verilenler: PNG, JPEG, GIF, WEBP)"
   },
   "buttons": {
     "edit": "Düzenle",

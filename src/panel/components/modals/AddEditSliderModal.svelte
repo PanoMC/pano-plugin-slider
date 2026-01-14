@@ -13,12 +13,6 @@
     -webkit-backdrop-filter: blur(8px);
   }
 
-  .drag-over {
-    border-color: var(--bs-primary) !important;
-    background-color: var(--bs-primary-bg-subtle) !important;
-    border-width: 2px !important;
-    border-style: dashed !important;
-  }
 </style>
 
 <div class="modal fade" bind:this={$modalElement} role="dialog" tabindex="-1">
@@ -43,15 +37,14 @@
           <div class="row g-3">
             <!-- Preview Section -->
             <div class="col-12 text-center">
-              <div
-                class="preview-container rounded border d-flex align-items-center justify-content-center bg-body-tertiary overflow-hidden position-relative"
-                class:drag-over={dropZoneActive}
-                style="height: 220px; cursor: pointer;"
-                on:click={() => fileInput.click()}
-                on:dragover={handleDragOver}
-                on:dragleave={handleDragLeave}
-                on:drop={handleDrop}>
-                {#if displayImageUrl}
+              {#if displayImageUrl}
+                <div
+                  class="preview-container rounded border d-flex align-items-center justify-content-center bg-body-tertiary overflow-hidden position-relative"
+                  style="height: 220px; cursor: pointer;"
+                  role="button"
+                  tabindex="0"
+                  on:click={() => fileInput.click()}
+                  on:keydown={(e) => e.key === 'Enter' && fileInput.click()}>
                   <img
                     src={displayImageUrl}
                     alt="Preview"
@@ -71,20 +64,32 @@
                     <button
                       type="button"
                       class="btn btn-sm btn-dark bg-opacity-50 border-0 rounded-circle"
+                      title={$_('buttons.delete')}
+                      aria-label={$_('buttons.delete')}
                       on:click|stopPropagation={onRemoveImage}>
                       <i class="fas fa-times"></i>
                     </button>
                   </div>
-                {:else}
-                  <div class="text-center">
-                    <i class="fas fa-image fa-3x mb-2 opacity-50"></i>
-                    <div class="">{$_('components.modals.add-edit-slider.no-preview')}</div>
-                    <div class="small opacity-75 mt-1">
-                      {$_('components.modals.add-edit-slider.image-drop-placeholder')}
-                    </div>
-                  </div>
-                {/if}
-              </div>
+                </div>
+              {:else}
+                <DragAndDropZone
+                  class="mb-0"
+                  style="height: 220px;"
+                  accept={['image/png', 'image/jpeg', 'image/gif', 'image/webp']}
+                  maxFileSize={5 * 1024 * 1024}
+                  on:drop={(e) => processFile(e.detail)}
+                  on:error={handleFileError}>
+                  <i class="fas fa-image fa-3x mb-3 opacity-50"></i>
+                  <p class="mb-0 opacity-75 fw-medium">
+                    {$_('components.modals.add-edit-slider.image-drop-placeholder')}
+                  </p>
+                  <small
+                    class="opacity-50 text-uppercase fw-semibold"
+                    style="font-size: 0.7rem; letter-spacing: 0.5px;">
+                    {$_('components.modals.add-edit-slider.image-format-info')}
+                  </small>
+                </DragAndDropZone>
+              {/if}
             </div>
 
             <!-- Title & Subtitle -->
@@ -260,9 +265,9 @@
   import ApiUtil from '@panomc/sdk/utils/api';
   import { base } from '@panomc/sdk/svelte';
   import { showToast } from '@panomc/sdk/toasts';
+  import { DragAndDropZone } from "@panomc/sdk/components";
 
   let fileInput;
-  let dropZoneActive = false;
 
   $: loading = $loadingStore;
   $: hasDataChanges =
@@ -293,21 +298,12 @@
         : `${base}${$slider.imageUrl}`
       : null);
 
-  function handleDragOver(e) {
-    e.preventDefault();
-    dropZoneActive = true;
-  }
-
-  function handleDragLeave() {
-    dropZoneActive = false;
-  }
-
-  function handleDrop(e) {
-    e.preventDefault();
-    dropZoneActive = false;
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      processFile(file);
+  function handleFileError(event) {
+    const { error } = event.detail;
+    if (error === 'INVALID_SIZE') {
+      showToast($_('toasts.image-size-error'));
+    } else if (error === 'INVALID_TYPE') {
+      showToast($_('toasts.image-type-error'));
     }
   }
 
@@ -329,7 +325,7 @@
     }
 
     if (!allowedTypes.includes(file.type)) {
-      showToast('Invalid file type');
+      showToast($_('toasts.image-type-error'));
       if (fileInput) fileInput.value = '';
       return;
     }
