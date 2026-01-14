@@ -60,10 +60,10 @@
     </div>
   </div>
 </th>
-<td class="align-middle text-center p-0" style="width: 40px; cursor: grab;">
+<td class="align-middle text-center p-0" style="width: 40px; cursor: grab;" title={$_('buttons.reorder')} aria-label={$_('buttons.reorder')}>
   <i class="fas fa-grip-vertical"></i>
 </td>
-<td class="align-middle clickable" on:click={() => onEditClick(slider.id)}>
+<td class="align-middle clickable" on:click={() => onEditClick(slider.id)} title={$_('buttons.edit')} aria-label={$_('buttons.edit')}>
   {#if slider.imageUrl}
     <div class="slider-preview">
       <img
@@ -75,15 +75,15 @@
     </div>
   {:else}
     <div
-      class="slider-preview-placeholder rounded bg-light d-flex align-middle justify-content-center align-items-center">
+      class="slider-preview-placeholder rounded d-flex align-middle justify-content-center align-items-center">
       <i class="fas fa-image"></i>
     </div>
   {/if}
 </td>
-<td class="align-middle clickable" on:click={() => onEditClick(slider.id)}>
-  <div class="fw-bold">{slider.title}</div>
+<td class="align-middle clickable" on:click={() => onEditClick(slider.id)} title={$_('buttons.edit')}>
+  {slider.title}
   {#if slider.subtitle}
-    <div class=" small">{slider.subtitle}</div>
+    <div class="small">{slider.subtitle}</div>
   {/if}
 </td>
 <td class="align-middle text-center">

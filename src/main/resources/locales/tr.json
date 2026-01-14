@@ -19,7 +19,8 @@
     "close": "Kapat",
     "browse": "Göz At",
     "change": "Değiştir",
-    "visit": "Ziyaret Et"
+    "visit": "Ziyaret Et",
+    "reorder": "Sırala"
   },
   "pages": {
     "slider": {

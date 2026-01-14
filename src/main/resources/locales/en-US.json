@@ -19,7 +19,8 @@
     "close": "Close",
     "browse": "Browse",
     "change": "Change",
-    "visit": "Visit"
+    "visit": "Visit",
+    "reorder": "Reorder"
   },
   "pages": {
     "slider": {
