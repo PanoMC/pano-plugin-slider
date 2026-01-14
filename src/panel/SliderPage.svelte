@@ -48,7 +48,7 @@
     {:else}
       <!-- Items Table -->
       <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
+        <table class="table table-hover align-middle">
           <thead>
             <tr>
               <th scope="col" style="width: 50px;">{$_('pages.slider.table.actions')}</th>
