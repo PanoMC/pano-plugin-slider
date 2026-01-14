@@ -263,6 +263,7 @@
                       type="button"
                       class="btn btn-sm btn-danger position-absolute top-0 start-100 translate-middle"
                       style="z-index: 10;"
+                      title={$_("buttons.delete")}
                       aria-label={$_("buttons.delete")}
                       on:click|stopPropagation={onRemoveImage}
                       on:mouseenter|stopPropagation
