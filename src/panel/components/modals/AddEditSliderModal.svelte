@@ -1,213 +1,13 @@
-<style>
-  .preview-container {
-    transition: all 0.2s ease;
-  }
-
-  .form-check-input {
-    cursor: pointer;
-  }
-
-  .preview-overlay {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-</style>
-
-<div class="modal fade" bind:this={$modalElement} role="dialog" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered" role="dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">
-          {$mode === 'edit'
-            ? $_('components.modals.add-edit-slider.edit-title')
-            : $_('components.modals.add-edit-slider.add-title')}
-        </h5>
-        <button
-          title={$_('buttons.close')}
-          aria-label={$_('buttons.close')}
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          on:click={hide}></button>
-      </div>
-      <form on:submit|preventDefault={onSubmit}>
-        <div class="modal-body">
-          <div class="row g-3">
-            <!-- Preview Section -->
-            <div class="col-12 text-center">
-              {#if displayImageUrl}
-                <div
-                  class="preview-container rounded border d-flex align-items-center justify-content-center bg-body-tertiary overflow-hidden position-relative"
-                  style="height: 220px; cursor: pointer;"
-                  role="button"
-                  tabindex="0"
-                  on:click={() => fileInput.click()}
-                  on:keydown={(e) => e.key === 'Enter' && fileInput.click()}>
-                  <img
-                    src={displayImageUrl}
-                    alt="Preview"
-                    class="w-100 h-100 object-fit-cover"
-                    on:error={onImageError} />
-                  <div
-                    class="preview-overlay position-absolute bottom-0 start-0 w-100 p-3 text-white text-start">
-                    <div class="">
-                      {$slider.title || $_('components.modals.add-edit-slider.placeholders.title')}
-                    </div>
-                    <div class="small opacity-75">
-                      {$slider.subtitle ||
-                        $_('components.modals.add-edit-slider.placeholders.subtitle')}
-                    </div>
-                  </div>
-                  <div class="position-absolute top-0 end-0 p-3">
-                    <button
-                      type="button"
-                      class="btn-close"
-                      title={$_('buttons.delete')}
-                      aria-label={$_('buttons.delete')}
-                      on:click|stopPropagation={onRemoveImage}>
-                    </button>
-                  </div>
-                </div>
-              {:else}
-                <DragAndDropZone
-                  class="mb-0"
-                  style="height: 220px;"
-                  accept={['image/png', 'image/jpeg', 'image/gif', 'image/webp']}
-                  maxFileSize={5 * 1024 * 1024}
-                  on:drop={(e) => processFile(e.detail)}
-                  on:error={handleFileError}>
-                  <i class="fas fa-image fa-3x mb-3 opacity-50"></i>
-                  <p class="mb-0 opacity-75 fw-medium">
-                    {$_('components.modals.add-edit-slider.image-drop-placeholder')}
-                  </p>
-                  <small
-                    class="opacity-50 text-uppercase fw-semibold"
-                    style="font-size: 0.7rem; letter-spacing: 0.5px;">
-                    {$_('components.modals.add-edit-slider.image-format-info')}
-                  </small>
-                </DragAndDropZone>
-              {/if}
-            </div>
-
-            <!-- Title & Subtitle -->
-            <div class="col-md-6">
-              <label for="slider-title" class="form-label"
-                >{$_('components.modals.add-edit-slider.fields.title')}</label>
-              <input
-                id="slider-title"
-                type="text"
-                class="form-control"
-                placeholder={$_('components.modals.add-edit-slider.placeholders.title')}
-                bind:value={$slider.title} />
-            </div>
-            <div class="col-md-6">
-              <label for="slider-subtitle" class="form-label"
-                >{$_('components.modals.add-edit-slider.fields.subtitle')}</label>
-              <input
-                id="slider-subtitle"
-                type="text"
-                class="form-control"
-                placeholder={$_('components.modals.add-edit-slider.placeholders.subtitle')}
-                bind:value={$slider.subtitle} />
-            </div>
-
-            <!-- Hidden File Input -->
-            <input
-              id="slider-image"
-              type="file"
-              class="d-none"
-              accept="image/png,image/jpeg,image/gif,image/webp"
-              on:change={onFileChange}
-              bind:this={fileInput} />
-
-            <!-- Link URL -->
-            <div class="col-md-6">
-              <label for="slider-link" class="form-label"
-                >{$_('components.modals.add-edit-slider.fields.link-url')}</label>
-
-              <input
-                id="slider-link"
-                type="text"
-                class="form-control"
-                placeholder="/category/featured"
-                bind:value={$slider.linkUrl} />
-            </div>
-
-            <!-- Order -->
-            {#if $mode === 'edit'}
-              <div class="col-md-6">
-                <label for="slider-order" class="form-label"
-                  >{$_('components.modals.add-edit-slider.fields.order')}</label>
-                <input
-                  id="slider-order"
-                  type="number"
-                  class="form-control"
-                  bind:value={$slider.itemOrder}
-                  min="1" />
-              </div>
-            {/if}
-
-            <!-- Status Switch -->
-            <div class="col-12">
-              <div class="row g-2">
-                <div class="col-md-6">
-                  <div class="form-check form-switch h-100">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      role="switch"
-                      id="slider-status"
-                      bind:checked={$slider.active} />
-                    <label class="form-check-label" for="slider-status">
-                      {$slider.active
-                        ? $_('pages.slider.table.status-active')
-                        : $_('pages.slider.table.status-inactive')}
-                    </label>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-check form-switch h-100">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      role="switch"
-                      id="slider-new-tab"
-                      bind:checked={$slider.openInNewTab} />
-                    <label class="form-check-label" for="slider-new-tab">
-                      {$_('components.modals.add-edit-slider.fields.open-in-new-tab')}
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary w-100" type="submit" disabled={loading || !canSave}>
-            {#if loading}
-              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"
-              ></span>
-            {/if}
-            {$mode === 'edit' ? $_('buttons.save') : $_('buttons.create')}
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 <script context="module">
-  import { writable, get } from 'svelte/store';
+  import { writable, get } from "svelte/store";
 
   const modalElement = writable();
-  const mode = writable('create');
+  const mode = writable("create");
   const slider = writable({
-    title: '',
-    subtitle: '',
-    imageUrl: '',
-    linkUrl: '',
+    title: "",
+    subtitle: "",
+    imageUrl: "",
+    linkUrl: "",
     openInNewTab: false,
     itemOrder: 1,
     active: true,
@@ -230,10 +30,10 @@
       initialData.set({ ...copy });
     } else {
       const reset = {
-        title: '',
-        subtitle: '',
-        imageUrl: '',
-        linkUrl: '',
+        title: "",
+        subtitle: "",
+        imageUrl: "",
+        linkUrl: "",
         openInNewTab: false,
         itemOrder: 1,
         active: true,
@@ -244,7 +44,7 @@
     loadingStore.set(false);
 
     modal = new window.bootstrap.Modal(get(modalElement), {
-      backdrop: 'static',
+      backdrop: "static",
       keyboard: false,
     });
     modal.show();
@@ -260,11 +60,12 @@
 </script>
 
 <script>
-  import { _ } from '../../../main';
-  import ApiUtil from '@panomc/sdk/utils/api';
-  import { base } from '@panomc/sdk/svelte';
-  import { showToast } from '@panomc/sdk/toasts';
+  import { _ } from "../../../main";
+  import ApiUtil from "@panomc/sdk/utils/api";
+  import { base } from "@panomc/sdk/svelte";
+  import { showToast } from "@panomc/sdk/toasts";
   import { DragAndDropZone } from "@panomc/sdk/components";
+  import tooltip from "@panomc/sdk/utils/tooltip";
 
   let fileInput;
 
@@ -280,29 +81,31 @@
       $slider.imageUrl !== $initialData.imageUrl);
   $: isFormValid =
     $selectedFile ||
-    ($mode === 'create' ? false : $slider.imageUrl && hasDataChanges) ||
-    ($mode === 'create' ? $slider.imageUrl : false);
+    ($mode === "create" ? false : $slider.imageUrl && hasDataChanges) ||
+    ($mode === "create" ? $slider.imageUrl : false);
 
   // Refined validation:
   // In 'create' mode: must have a file OR an imageUrl (if somehow set).
   // In 'edit' mode: must have a selectedFile OR (imageUrl exists AND (data changed OR file removed/changed)).
   $: canSave =
-    $mode === 'create' ? $selectedFile || $slider.imageUrl : $selectedFile || hasDataChanges;
+    $mode === "create"
+      ? $selectedFile || $slider.imageUrl
+      : $selectedFile || hasDataChanges;
 
   $: displayImageUrl =
     $previewUrl ||
     ($slider.imageUrl
-      ? $slider.imageUrl.startsWith('http')
+      ? $slider.imageUrl.startsWith("http")
         ? $slider.imageUrl
         : `${base}${$slider.imageUrl}`
       : null);
 
   function handleFileError(event) {
     const { error } = event.detail;
-    if (error === 'INVALID_SIZE') {
-      showToast($_('toasts.image-size-error'));
-    } else if (error === 'INVALID_TYPE') {
-      showToast($_('toasts.image-type-error'));
+    if (error === "INVALID_SIZE") {
+      showToast($_("toasts.image-size-error"));
+    } else if (error === "INVALID_TYPE") {
+      showToast($_("toasts.image-type-error"));
     }
   }
 
@@ -315,17 +118,17 @@
 
   function processFile(file) {
     const maxSize = 5 * 1024 * 1024;
-    const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+    const allowedTypes = ["image/png", "image/jpeg", "image/gif", "image/webp"];
 
     if (file.size > maxSize) {
-      showToast($_('toasts.image-size-error'));
-      if (fileInput) fileInput.value = '';
+      showToast($_("toasts.image-size-error"));
+      if (fileInput) fileInput.value = "";
       return;
     }
 
     if (!allowedTypes.includes(file.type)) {
-      showToast($_('toasts.image-type-error'));
-      if (fileInput) fileInput.value = '';
+      showToast($_("toasts.image-type-error"));
+      if (fileInput) fileInput.value = "";
       return;
     }
 
@@ -340,8 +143,8 @@
   function onRemoveImage() {
     selectedFile.set(null);
     previewUrl.set(null);
-    $slider.imageUrl = '';
-    if (fileInput) fileInput.value = '';
+    $slider.imageUrl = "";
+    if (fileInput) fileInput.value = "";
   }
 
   function onImageError() {
@@ -352,39 +155,302 @@
     $loadingStore = true;
 
     try {
-      const isEdit = $mode === 'edit';
-      const path = isEdit ? `/api/panel/slider/items/${$slider.id}` : '/api/panel/slider/items';
+      const isEdit = $mode === "edit";
+      const path = isEdit
+        ? `/api/panel/slider/items/${$slider.id}`
+        : "/api/panel/slider/items";
 
       const formData = new FormData();
-      formData.append('title', $slider.title);
-      formData.append('subtitle', $slider.subtitle || '');
-      formData.append('linkUrl', $slider.linkUrl || '');
-      formData.append('openInNewTab', $slider.openInNewTab);
-      formData.append('itemOrder', $slider.itemOrder || 0);
-      formData.append('active', $slider.active);
+      formData.append("title", $slider.title);
+      formData.append("subtitle", $slider.subtitle || "");
+      formData.append("linkUrl", $slider.linkUrl || "");
+      formData.append("openInNewTab", $slider.openInNewTab);
+      formData.append("itemOrder", $slider.itemOrder || 0);
+      formData.append("active", $slider.active);
 
       if ($selectedFile) {
-        formData.append('image', $selectedFile);
+        formData.append("image", $selectedFile);
       }
 
-      const result = await ApiUtil[isEdit ? 'put' : 'post']({
+      const result = await ApiUtil[isEdit ? "put" : "post"]({
         path,
         body: formData,
         headers: {}, // FormData automatically sets correct multi-part headers
       });
 
-      if (result.result === 'ok') {
-        showToast(isEdit ? $_('toasts.item-updated') : $_('toasts.item-created'));
+      if (result.result === "ok") {
+        showToast(
+          isEdit ? $_("toasts.item-updated") : $_("toasts.item-created"),
+        );
         hide();
         callback();
       } else {
-        showToast($_('toasts.save-failed'), { values: { error: result.error } });
+        showToast($_("toasts.save-failed"), {
+          values: { error: result.error },
+        });
       }
     } catch (e) {
       console.error(e);
-      showToast($_('toasts.save-failed'), { values: { error: e.message } });
+      showToast($_("toasts.save-failed"), { values: { error: e.message } });
     } finally {
       $loadingStore = false;
     }
   }
 </script>
+
+<div class="modal fade" bind:this={$modalElement} role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {$mode === "edit"
+            ? $_("components.modals.add-edit-slider.edit-title")
+            : $_("components.modals.add-edit-slider.add-title")}
+        </h5>
+        <button
+          title={$_("buttons.close")}
+          aria-label={$_("buttons.close")}
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          on:click={hide}
+        ></button>
+      </div>
+      <form on:submit|preventDefault={onSubmit}>
+        <div class="modal-body">
+          <div class="row g-3">
+            <!-- Preview Section -->
+            <div class="col-12 text-center">
+              {#key displayImageUrl}
+                {#if displayImageUrl}
+                  <div class="position-relative w-100 mb-3">
+                    <div
+                      class="preview-container rounded border d-flex align-items-center justify-content-center bg-body-tertiary position-relative overflow-hidden"
+                      style="aspect-ratio: 16/9; cursor: pointer;"
+                      role="button"
+                      tabindex="0"
+                      use:tooltip={[
+                        $_("buttons.change"),
+                        { placement: "bottom" },
+                      ]}
+                      on:click={() => fileInput.click()}
+                      on:keydown={(e) => e.key === "Enter" && fileInput.click()}
+                    >
+                      <img
+                        src={displayImageUrl}
+                        alt="Preview"
+                        class="w-100 h-100 object-fit-cover"
+                        on:error={onImageError}
+                      />
+                      <div
+                        class="preview-overlay position-absolute bottom-0 start-0 w-100 p-3 text-white text-start"
+                      >
+                        <div class="">
+                          {$slider.title ||
+                            $_(
+                              "components.modals.add-edit-slider.placeholders.title",
+                            )}
+                        </div>
+                        <div class="small opacity-75">
+                          {$slider.subtitle ||
+                            $_(
+                              "components.modals.add-edit-slider.placeholders.subtitle",
+                            )}
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-danger position-absolute top-0 start-100 translate-middle"
+                      style="z-index: 10;"
+                      aria-label={$_("buttons.delete")}
+                      on:click|stopPropagation={onRemoveImage}
+                      on:mouseenter|stopPropagation
+                      on:mouseleave|stopPropagation
+                    >
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                {:else}
+                  <DragAndDropZone
+                    class="mb-3"
+                    style="aspect-ratio: 16/9;"
+                    accept={[
+                      "image/png",
+                      "image/jpeg",
+                      "image/gif",
+                      "image/webp",
+                    ]}
+                    maxFileSize={5 * 1024 * 1024}
+                    on:drop={(e) => processFile(e.detail)}
+                    on:error={handleFileError}
+                  >
+                    <i class="fas fa-image fa-3x mb-3 opacity-50"></i>
+                    <p class="mb-0 opacity-75 fw-medium">
+                      {$_(
+                        "components.modals.add-edit-slider.image-drop-placeholder",
+                      )}
+                    </p>
+                    <small
+                      class="opacity-50 text-uppercase fw-semibold"
+                      style="font-size: 0.7rem; letter-spacing: 0.5px;"
+                    >
+                      {$_(
+                        "components.modals.add-edit-slider.image-format-info",
+                      )}
+                    </small>
+                  </DragAndDropZone>
+                {/if}
+              {/key}
+            </div>
+
+            <!-- Title & Subtitle -->
+            <div class="col-md-6">
+              <label for="slider-title" class="form-label"
+                >{$_("components.modals.add-edit-slider.fields.title")}</label
+              >
+              <input
+                id="slider-title"
+                type="text"
+                class="form-control"
+                placeholder={$_(
+                  "components.modals.add-edit-slider.placeholders.title",
+                )}
+                bind:value={$slider.title}
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="slider-subtitle" class="form-label"
+                >{$_(
+                  "components.modals.add-edit-slider.fields.subtitle",
+                )}</label
+              >
+              <input
+                id="slider-subtitle"
+                type="text"
+                class="form-control"
+                placeholder={$_(
+                  "components.modals.add-edit-slider.placeholders.subtitle",
+                )}
+                bind:value={$slider.subtitle}
+              />
+            </div>
+
+            <!-- Hidden File Input -->
+            <input
+              id="slider-image"
+              type="file"
+              class="d-none"
+              accept="image/png,image/jpeg,image/gif,image/webp"
+              on:change={onFileChange}
+              bind:this={fileInput}
+            />
+
+            <!-- Link URL -->
+            <div class="col-md-6">
+              <label for="slider-link" class="form-label"
+                >{$_(
+                  "components.modals.add-edit-slider.fields.link-url",
+                )}</label
+              >
+
+              <input
+                id="slider-link"
+                type="text"
+                class="form-control"
+                placeholder="/category/featured"
+                bind:value={$slider.linkUrl}
+              />
+            </div>
+
+            <!-- Order -->
+            {#if $mode === "edit"}
+              <div class="col-md-6">
+                <label for="slider-order" class="form-label"
+                  >{$_("components.modals.add-edit-slider.fields.order")}</label
+                >
+                <input
+                  id="slider-order"
+                  type="number"
+                  class="form-control"
+                  bind:value={$slider.itemOrder}
+                  min="1"
+                />
+              </div>
+            {/if}
+
+            <!-- Status Switch -->
+            <div class="col-12">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <div class="form-check form-switch h-100">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      id="slider-status"
+                      bind:checked={$slider.active}
+                    />
+                    <label class="form-check-label" for="slider-status">
+                      {$slider.active
+                        ? $_("pages.slider.table.status-active")
+                        : $_("pages.slider.table.status-inactive")}
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check form-switch h-100">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      id="slider-new-tab"
+                      bind:checked={$slider.openInNewTab}
+                    />
+                    <label class="form-check-label" for="slider-new-tab">
+                      {$_(
+                        "components.modals.add-edit-slider.fields.open-in-new-tab",
+                      )}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary w-100"
+            type="submit"
+            disabled={loading || !canSave}
+          >
+            {#if loading}
+              <span
+                class="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            {/if}
+            {$mode === "edit" ? $_("buttons.save") : $_("buttons.create")}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .preview-container {
+    transition: all 0.2s ease;
+  }
+
+  .form-check-input {
+    cursor: pointer;
+  }
+
+  .preview-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+</style>
