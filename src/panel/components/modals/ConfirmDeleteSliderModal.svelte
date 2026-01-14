@@ -17,9 +17,7 @@
         <div class="mb-3">
           <i class="fas fa-question-circle fa-3x"></i>
         </div>
-        <p class="mb-0">
-          {@html $_('components.modals.confirm-delete-slider.description', { values: { title: `<strong>${$slider.title}</strong>` } })}
-        </p>
+        {@html $_('components.modals.confirm-delete-slider.description', { values: { title: `<strong>${$slider.title}</strong>` } })}
       </div>
       <div class="modal-footer flex-nowrap">
         <button

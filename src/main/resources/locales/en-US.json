@@ -108,7 +108,7 @@
         "image-format-info": "Allowed: PNG, JPEG, GIF, WEBP. Maximum: 5MB."
       },
       "confirm-delete-slider": {
-        "title": "Delete Slider Item",
+        "title": "Delete Slider",
         "description": "Are you sure you want to delete the slider titled {title}? This action cannot be undone."
       }
     }
