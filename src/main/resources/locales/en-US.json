@@ -1,10 +1,10 @@
 {
   "toasts": {
-    "reorder-success": "Order updated successfully",
-    "settings-save-success": "Settings saved successfully",
-    "item-created": "Slider item created successfully",
-    "item-updated": "Slider item updated successfully",
-    "item-deleted": "Slider item deleted successfully",
+    "reorder-success": "Order updated.",
+    "settings-save-success": "Settings saved.",
+    "item-created": "Slider created.",
+    "item-updated": "Slider updated.",
+    "item-deleted": "Slider deleted.",
     "save-failed": "An error occurred while saving: {error}",
     "delete-failed": "An error occurred while deleting: {error}",
     "image-size-error": "Image size is too large (Max 5MB)",
@@ -22,10 +22,10 @@
   },
   "pages": {
     "slider": {
-      "title": "Slider Management",
-      "description": "You can manage the homepage slider items shown in the theme from here.",
+      "title": "Slider",
+      "description": "You can manage the homepage slider shown in the theme from here.",
       "new-slider": "Add New Slider",
-      "count": "{count} Slider Items",
+      "count": "{count} Sliders",
       "filters": {
         "all": "All",
         "active": "Active",
@@ -46,9 +46,7 @@
         "title": "General Settings",
         "fields": {
           "location": "Display Location",
-          "location-help": "Where should the slider be rendered?",
           "homepage-only": "Homepage Only",
-          "homepage-only-help": "Render slider only on the homepage?",
           "auto-slide": "Auto Slide",
           "auto-slide-help": "Enable automatic cycling of images.",
           "interval": "Interval (ms)",
@@ -86,8 +84,8 @@
     },
     "modals": {
       "add-edit-slider": {
-        "add-title": "Create New Slider Item",
-        "edit-title": "Edit Slider Item",
+        "add-title": "Create Slider",
+        "edit-title": "Edit Slider",
         "fields": {
           "title": "Title",
           "subtitle": "Subtitle",
@@ -97,8 +95,8 @@
           "order": "Display Order"
         },
         "placeholders": {
-          "title": "Enter slider title...",
-          "subtitle": "Optional subtitle..."
+          "title": "Slider Title",
+          "subtitle": "Subtitle (Optional)"
         },
         "no-preview": "No image preview",
         "image-drop-placeholder": "Drag and drop or click to upload",
@@ -106,21 +104,21 @@
       },
       "confirm-delete-slider": {
         "title": "Delete Slider Item",
-        "description": "Are you sure you want to delete the slider item titled {title}? This action cannot be undone."
+        "description": "Are you sure you want to delete the slider titled {title}? This action cannot be undone."
       }
     }
   },
   "permissions": {
     "MANAGE_SLIDER": {
       "title": "Manage Slider",
-      "description": "Can create, delete, edit slider items which will be shown in theme."
+      "description": "Can create, delete, edit slider which will be shown in theme."
     }
   },
   "activity-logs": {
-    "CREATED_SLIDER_ITEM": "<b>{username}</b> created the \"{title}\" slider item.",
-    "UPDATED_SLIDER_ITEM": "<b>{username}</b> updated the \"{title}\" slider item.",
-    "DELETED_SLIDER_ITEM": "<b>{username}</b> deleted the \"{title}\" slider item.",
+    "CREATED_SLIDER_ITEM": "<b>{username}</b> created the \"{title}\" slider.",
+    "UPDATED_SLIDER_ITEM": "<b>{username}</b> updated the \"{title}\" slider.",
+    "DELETED_SLIDER_ITEM": "<b>{username}</b> deleted the \"{title}\" slider.",
     "UPDATED_SLIDER_SETTINGS": "<b>{username}</b> updated slider settings.",
-    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> reordered slider items."
+    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> reordered slider."
   }
 }

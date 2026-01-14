@@ -49,7 +49,7 @@
       <!-- Items Table -->
       <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
-          <thead class="bg-light">
+          <thead>
             <tr>
               <th scope="col" style="width: 50px;">{$_('pages.slider.table.actions')}</th>
               <th scope="col" style="width: 40px;"></th>
@@ -91,7 +91,6 @@
       <div class="row mb-3">
         <label class="col-md-6 col-form-label" for="renderHook">
           {$_('pages.slider.settings.fields.location')}
-          <small class="d-block">{$_('pages.slider.settings.fields.location-help')}</small>
         </label>
         <div class="col-md-6">
           <select class="form-control" id="renderHook" bind:value={settings.renderHook}>
@@ -105,9 +104,6 @@
       <div class="row mb-3">
         <label class="col-md-6" for="homepageOnly">
           {$_('pages.slider.settings.fields.homepage-only')}
-          <small class="d-block">
-            {$_('pages.slider.settings.fields.homepage-only-help')}
-          </small>
         </label>
         <div class="col-md-6 d-flex align-items-center">
           <div class="form-check form-switch">
@@ -120,8 +116,6 @@
           </div>
         </div>
       </div>
-
-      <hr class="my-4 opacity-10" />
 
       <!-- Auto Slide -->
       <div class="row mb-3">
@@ -244,8 +238,6 @@
           </div>
         </div>
       </div>
-
-      <hr />
 
       <!-- Caption Style -->
       <div class="row mb-3">

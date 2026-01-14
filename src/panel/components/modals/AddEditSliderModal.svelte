@@ -60,14 +60,13 @@
                         $_('components.modals.add-edit-slider.placeholders.subtitle')}
                     </div>
                   </div>
-                  <div class="position-absolute top-0 end-0 p-2">
+                  <div class="position-absolute top-0 end-0 p-3">
                     <button
                       type="button"
-                      class="btn btn-sm btn-dark bg-opacity-50 border-0 rounded-circle"
+                      class="btn-close"
                       title={$_('buttons.delete')}
                       aria-label={$_('buttons.delete')}
                       on:click|stopPropagation={onRemoveImage}>
-                      <i class="fas fa-times"></i>
                     </button>
                   </div>
                 </div>
@@ -124,7 +123,7 @@
               bind:this={fileInput} />
 
             <!-- Link URL -->
-            <div class="col">
+            <div class="col-md-6">
               <label for="slider-link" class="form-label"
                 >{$_('components.modals.add-edit-slider.fields.link-url')}</label>
 
@@ -138,7 +137,7 @@
 
             <!-- Order -->
             {#if $mode === 'edit'}
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <label for="slider-order" class="form-label"
                   >{$_('components.modals.add-edit-slider.fields.order')}</label>
                 <input

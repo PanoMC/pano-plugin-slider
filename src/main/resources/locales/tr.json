@@ -1,10 +1,10 @@
 {
   "toasts": {
-    "reorder-success": "Sıralama başarıyla güncellendi",
-    "settings-save-success": "Ayarlar başarıyla kaydedildi",
-    "item-created": "Slider öğesi başarıyla oluşturuldu",
-    "item-updated": "Slider öğesi başarıyla güncellendi",
-    "item-deleted": "Slider öğesi başarıyla silindi",
+    "reorder-success": "Sıralama güncellendi.",
+    "settings-save-success": "Ayarlar kaydedildi.",
+    "item-created": "Slayt oluşturuldu.",
+    "item-updated": "Slayt güncellendi.",
+    "item-deleted": "Slayt silindi.",
     "save-failed": "Kaydedilirken bir hata oluştu: {error}",
     "delete-failed": "Silinirken bir hata oluştu: {error}",
     "image-size-error": "Görsel boyutu çok büyük (Maks 5MB)",
@@ -22,10 +22,10 @@
   },
   "pages": {
     "slider": {
-      "title": "Slider Yönetimi",
-      "description": "Temada görüntülenecek olan ana sayfa slider öğelerini buradan yönetebilirsiniz.",
-      "new-slider": "Yeni Slider Ekle",
-      "count": "{count} Slider Öğesi",
+      "title": "Slaytlar",
+      "description": "Temada görüntülenecek olan ana sayfa slaytlarını buradan yönetebilirsiniz.",
+      "new-slider": "Yeni Slayt",
+      "count": "{count} Slayt",
       "filters": {
         "all": "Tümü",
         "active": "Aktif",
@@ -46,9 +46,7 @@
         "title": "Genel Ayarlar",
         "fields": {
           "location": "Görüntüleme Konumu",
-          "location-help": "Slider nerede görüntülensin?",
           "homepage-only": "Sadece Ana Sayfa",
-          "homepage-only-help": "Slider sadece ana sayfada mı görüntülensin?",
           "auto-slide": "Otomatik Kaydır",
           "auto-slide-help": "Görsellerin otomatik olarak değişmesini sağlar.",
           "interval": "Geçiş Süresi (ms)",
@@ -56,7 +54,7 @@
           "pause-on-hover": "Üzerine Gelince Duraklat",
           "pause-on-hover-help": "İmleç üzerindeyken otomatik kaydırmayı durdurur.",
           "wrap": "Döngü",
-          "wrap-help": "Slider sonuna geldiğinde başa döner.",
+          "wrap-help": "Slayt sonuna geldiğinde başa döner.",
           "indicators": "Noktalar",
           "indicators-help": "Alt kısımdaki sayfa noktalarını gösterir.",
           "controls": "Oklar",
@@ -86,8 +84,8 @@
     },
     "modals": {
       "add-edit-slider": {
-        "add-title": "Yeni Slider Öğesi Oluştur",
-        "edit-title": "Slider Öğesini Düzenle",
+        "add-title": "Slayt Oluştur",
+        "edit-title": "Slayt Düzenle",
         "fields": {
           "title": "Başlık",
           "subtitle": "Alt Başlık",
@@ -97,30 +95,30 @@
           "order": "Görüntüleme Sırası"
         },
         "placeholders": {
-          "title": "Slider başlığını girin...",
-          "subtitle": "Opsiyonel alt başlık..."
+          "title": "Slayt Başlığı",
+          "subtitle": "Alt Başlık (Opsiyonel)"
         },
-        "no-preview": "Görsel önizlemesi yok",
+        "no-preview": "Görsel önizleme yok",
         "image-drop-placeholder": "Yüklemek için sürükleyip bırakın veya tıklayın",
         "image-format-info": "İzin verilenler: PNG, JPEG, GIF, WEBP. Maksimum: 5MB."
       },
       "confirm-delete-slider": {
-        "title": "Slider Öğesini Sil",
-        "description": "{title} başlıklı slider öğesini silmek istediğinize emin misiniz? Bu işlem geri alınamaz."
+        "title": "Slayt Sil",
+        "description": "{title} başlıklı slaytı silmek istediğinize emin misiniz? Bu işlem geri alınamaz."
       }
     }
   },
   "permissions": {
     "MANAGE_SLIDER": {
-      "title": "Slider Yönetimi",
-      "description": "Temada gösterilecek slider öğelerini oluşturabilir, silebilir ve düzenleyebilir."
+      "title": "Slayt Yönetimi",
+      "description": "Temada gösterilecek slayt oluşturabilir, silebilir ve düzenleyebilir."
     }
   },
   "activity-logs": {
-    "CREATED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slider öğesini oluşturdu.",
-    "UPDATED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slider öğesini güncelledi.",
-    "DELETED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slider öğesini sildi.",
-    "UPDATED_SLIDER_SETTINGS": "<b>{username}</b> slider ayarlarını güncelledi.",
-    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> slider öğelerini yeniden sıraladı."
+    "CREATED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slayt oluşturdu.",
+    "UPDATED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slayt güncelledi.",
+    "DELETED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slayt sildi.",
+    "UPDATED_SLIDER_SETTINGS": "<b>{username}</b> slayt ayarlarını güncelledi.",
+    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> slayt yeniden sıraladı."
   }
 }
