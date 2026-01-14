@@ -233,9 +233,7 @@
 
     <!-- No Items -->
     {#if !data.sliderItems || data.sliderItems.length === 0}
-      <div class="py-5">
-        <NoContent />
-      </div>
+      <NoContent />
     {:else}
       <!-- Items Table -->
       <div class="table-responsive">
