@@ -80,11 +80,19 @@
     </div>
   {/if}
 </td>
-<td class="align-middle clickable" on:click={() => onEditClick(slider.id)} title={$_('buttons.edit')}>
-  {slider.title}
-  {#if slider.subtitle}
-    <div class="small">{slider.subtitle}</div>
-  {/if}
+<td class="align-middle" style="max-width: 250px;">
+  <div class="text-truncate">
+    <button
+      type="button"
+      class="btn btn-link p-0 text-start text-decoration-none w-100 text-truncate"
+      on:click={() => onEditClick(slider.id)}
+      title={$_('buttons.edit')}>
+      <span class="fw-bold d-block text-truncate">{slider.title}</span>
+      {#if slider.subtitle}
+        <div class="small text-truncate">{slider.subtitle}</div>
+      {/if}
+    </button>
+  </div>
 </td>
 <td class="align-middle text-center">
   {slider.itemOrder}
