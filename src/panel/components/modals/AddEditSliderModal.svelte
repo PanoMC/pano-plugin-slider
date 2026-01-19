@@ -245,16 +245,12 @@
                       <div
                         class="preview-overlay position-absolute bottom-0 start-0 w-100 p-3 text-white text-start"
                       >
-                        <div class="">
-                          {$slider.title ||
-                            $_(
-                              "components.modals.add-edit-slider.placeholders.title",
-                            )}
-                        </div>
+                        {$slider.title ||
+                          $_("components.modals.add-edit-slider.fields.title")}
                         <div class="small opacity-75">
                           {$slider.subtitle ||
                             $_(
-                              "components.modals.add-edit-slider.placeholders.subtitle",
+                              "components.modals.add-edit-slider.fields.subtitle",
                             )}
                         </div>
                       </div>
@@ -307,34 +303,34 @@
 
             <!-- Title & Subtitle -->
             <div class="col-md-6">
-              <label for="slider-title" class="form-label"
-                >{$_("components.modals.add-edit-slider.fields.title")}</label
-              >
-              <input
-                id="slider-title"
-                type="text"
-                class="form-control"
-                placeholder={$_(
-                  "components.modals.add-edit-slider.placeholders.title",
-                )}
-                bind:value={$slider.title}
-              />
+              <div class="form-floating">
+                <input
+                  id="slider-title"
+                  type="text"
+                  class="form-control"
+                  placeholder=" "
+                  bind:value={$slider.title}
+                />
+                <label for="slider-title"
+                  >{$_("components.modals.add-edit-slider.fields.title")}</label
+                >
+              </div>
             </div>
             <div class="col-md-6">
-              <label for="slider-subtitle" class="form-label"
-                >{$_(
-                  "components.modals.add-edit-slider.fields.subtitle",
-                )}</label
-              >
-              <input
-                id="slider-subtitle"
-                type="text"
-                class="form-control"
-                placeholder={$_(
-                  "components.modals.add-edit-slider.placeholders.subtitle",
-                )}
-                bind:value={$slider.subtitle}
-              />
+              <div class="form-floating">
+                <input
+                  id="slider-subtitle"
+                  type="text"
+                  class="form-control"
+                  placeholder=" "
+                  bind:value={$slider.subtitle}
+                />
+                <label for="slider-subtitle"
+                  >{$_(
+                    "components.modals.add-edit-slider.fields.subtitle",
+                  )}</label
+                >
+              </div>
             </div>
 
             <!-- Hidden File Input -->
@@ -348,20 +344,21 @@
             />
 
             <!-- Link URL -->
-            <div class="col-md-6">
-              <label for="slider-link" class="form-label"
-                >{$_(
-                  "components.modals.add-edit-slider.fields.link-url",
-                )}</label
-              >
-
-              <input
-                id="slider-link"
-                type="text"
-                class="form-control"
-                placeholder="/category/featured"
-                bind:value={$slider.linkUrl}
-              />
+            <div class="col-12">
+              <div class="form-floating">
+                <input
+                  id="slider-link"
+                  type="text"
+                  class="form-control"
+                  placeholder=" "
+                  bind:value={$slider.linkUrl}
+                />
+                <label for="slider-link"
+                  >{$_(
+                    "components.modals.add-edit-slider.fields.link-url",
+                  )}</label
+                >
+              </div>
             </div>
 
             <!-- Order -->

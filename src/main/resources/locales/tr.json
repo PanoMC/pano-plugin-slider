@@ -95,13 +95,9 @@
           "title": "Başlık",
           "subtitle": "Alt Başlık",
           "image-url": "Görsel Dosyası",
-          "link-url": "Yönlendirme Bağlantısı",
-          "open-in-new-tab": "Yeni sekmede aç",
+          "link-url": "Bağlantı",
+          "open-in-new-tab": "Yeni Sekmede Aç",
           "order": "Görüntüleme Sırası"
-        },
-        "placeholders": {
-          "title": "Slayt Başlığı",
-          "subtitle": "Alt Başlık (Opsiyonel)"
         },
         "no-preview": "Görsel önizleme yok",
         "image-drop-placeholder": "Yüklemek için sürükleyip bırakın veya tıklayın",

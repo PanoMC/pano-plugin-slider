@@ -95,13 +95,9 @@
           "title": "Title",
           "subtitle": "Subtitle",
           "image-url": "Image File",
-          "link-url": "Link URL",
-          "open-in-new-tab": "Open in new tab",
+          "link-url": "Link",
+          "open-in-new-tab": "Open in New Tab",
           "order": "Display Order"
-        },
-        "placeholders": {
-          "title": "Slider Title",
-          "subtitle": "Subtitle (Optional)"
         },
         "no-preview": "No image preview",
         "image-drop-placeholder": "Drag and drop or click to upload",
