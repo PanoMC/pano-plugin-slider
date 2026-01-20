@@ -26,7 +26,7 @@
     "slider": {
       "title": "Slaytlar",
       "description": "Temada görüntülenecek olan ana sayfa slaytlarını buradan yönetebilirsiniz.",
-      "new-slider": "Yeni Slayt",
+      "add-slider": "Slayt Ekle",
       "count": "{count} Slayt",
       "filters": {
         "all": "Tümü",

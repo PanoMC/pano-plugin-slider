@@ -17,7 +17,7 @@
     <div slot="right">
       <button type="button" class="btn btn-secondary" on:click={onCreateClick}>
         <i class="fas fa-plus me-2"></i>
-        {$_('pages.slider.new-slider')}
+        {$_('pages.slider.add-slider')}
       </button>
     </div>
   </PageActions>
