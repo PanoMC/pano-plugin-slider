@@ -60,10 +60,18 @@
     </div>
   </div>
 </th>
-<td class="align-middle text-center p-0" style="width: 40px; cursor: grab;" title={$_('buttons.reorder')} aria-label={$_('buttons.reorder')}>
+<td
+  class="align-middle text-center p-0"
+  style="width: 40px; cursor: grab;"
+  title={$_('buttons.reorder')}
+  aria-label={$_('buttons.reorder')}>
   <i class="fas fa-grip-vertical"></i>
 </td>
-<td class="align-middle clickable" on:click={() => onEditClick(slider.id)} title={$_('buttons.edit')} aria-label={$_('buttons.edit')}>
+<td
+  class="align-middle clickable"
+  on:click={() => onEditClick(slider.id)}
+  title={$_('buttons.edit')}
+  aria-label={$_('buttons.edit')}>
   {#if slider.imageUrl}
     <div class="slider-preview">
       <img
@@ -112,12 +120,11 @@
 </td>
 
 <script>
-  import { _ } from '../../main';
-  import { base } from '@panomc/sdk/svelte';
-  import { Date } from '@panomc/sdk/components';
-  import tooltip from '@panomc/sdk/utils/tooltip';
+    import {_} from '../../main';
+    import {base} from '@panomc/sdk/svelte';
+    import {Date} from '@panomc/sdk/components';
 
-  export let slider;
+    export let slider;
   export let onEditClick;
   export let onDeleteClick;
   export let buttonsLoading = false;

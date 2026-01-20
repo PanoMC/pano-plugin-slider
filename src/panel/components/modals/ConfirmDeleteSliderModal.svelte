@@ -17,23 +17,18 @@
         <div class="mb-3">
           <i class="fas fa-question-circle fa-3x"></i>
         </div>
-        {@html $_('components.modals.confirm-delete-slider.description', { values: { title: `<strong>${$slider.title}</strong>` } })}
+        {@html $_('components.modals.confirm-delete-slider.description', {
+          values: { title: `<strong>${$slider.title}</strong>` },
+        })}
       </div>
       <div class="modal-footer flex-nowrap">
-        <button
-          class="btn btn-link col-6"
-          type="button"
-          on:click={hide}
-          disabled={loading}>
+        <button class="btn btn-link col-6" type="button" on:click={hide} disabled={loading}>
           {$_('buttons.cancel')}
         </button>
-        <button
-          class="btn btn-danger col-6"
-          type="button"
-          on:click={onConfirm}
-          disabled={loading}>
+        <button class="btn btn-danger col-6" type="button" on:click={onConfirm} disabled={loading}>
           {#if loading}
-            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"
+            ></span>
           {/if}
           {$_('buttons.delete')}
         </button>
@@ -43,9 +38,9 @@
 </div>
 
 <script context="module">
-  import { writable, get } from 'svelte/store';
+    import {get, writable} from 'svelte/store';
 
-  const modalElement = writable();
+    const modalElement = writable();
   const slider = writable({});
   const loadingStore = writable(false);
 
@@ -73,9 +68,9 @@
 </script>
 
 <script>
-  import { _ } from "../../../main";
-  import ApiUtil from "@panomc/sdk/utils/api";
-  import { showToast } from "@panomc/sdk/toasts";
+  import { _ } from '../../../main';
+  import ApiUtil from '@panomc/sdk/utils/api';
+  import { showToast } from '@panomc/sdk/toasts';
 
   $: loading = $loadingStore;
 
@@ -84,7 +79,7 @@
 
     try {
       const result = await ApiUtil.delete({
-        path: `/api/panel/slider/items/${$slider.id}`
+        path: `/api/panel/slider/items/${$slider.id}`,
       });
 
       if (result.result === 'ok') {

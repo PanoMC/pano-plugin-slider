@@ -1,8 +1,8 @@
-import { PanoPlugin, viewComponent } from "@panomc/sdk";
-import { derived } from "svelte/store";
-import { _ as i18n } from "@panomc/sdk/utils/language";
+import {PanoPlugin, viewComponent} from '@panomc/sdk';
+import {derived} from 'svelte/store';
+import {_ as i18n} from '@panomc/sdk/utils/language';
 
-const pluginId = "pano-plugin-slider"
+const pluginId = 'pano-plugin-slider';
 
 // this is to render plugin translations
 export const _ = derived(i18n, ($_fn) => {
@@ -11,9 +11,9 @@ export const _ = derived(i18n, ($_fn) => {
 
 export default class PanoPluginSlider extends PanoPlugin {
   onLoad() {
-    const pano = this.pano
+    const pano = this.pano;
 
-    console.log("Slider plugin enabled, environment:" + pano.isPanel)
+    console.log('Slider plugin enabled, environment:' + pano.isPanel);
 
     if (pano.isPanel) {
       pano.ui.page.register({
@@ -33,23 +33,21 @@ export default class PanoPluginSlider extends PanoPlugin {
         return items;
       });
     } else {
-      const sliderComponent = viewComponent(() => import("./theme/Slider.svelte"));
+      const sliderComponent = viewComponent(() => import('./theme/Slider.svelte'));
 
       pano.ui.hook.register({
-        name: "page:home:top",
+        name: 'page:home:top',
         component: sliderComponent,
       });
 
       pano.ui.hook.register({
-        name: "page:top",
+        name: 'page:top',
         component: sliderComponent,
       });
     }
   }
 
-  onContextUpdate(ctx) {
-  }
+  onContextUpdate(ctx) {}
 
-  onUnload() {
-  }
+  onUnload() {}
 }
