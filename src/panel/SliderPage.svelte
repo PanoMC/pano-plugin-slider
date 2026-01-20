@@ -172,20 +172,17 @@
         </div>
       </div>
 
-      <!-- Fade -->
+      <!-- Transition -->
       <div class="row mb-3">
-        <label class="col-md-6" for="fade">
-          {$_('pages.slider.settings.fields.fade')}
-          <small class="d-block">{$_('pages.slider.settings.fields.fade-help')}</small>
+        <label class="col-md-6 col-form-label" for="transition">
+          {$_('pages.slider.settings.fields.transition')}
+          <small class="d-block">{$_('pages.slider.settings.fields.transition-help')}</small>
         </label>
-        <div class="col-md-6 d-flex align-items-center">
-          <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="fade"
-              bind:checked={settings.fade} />
-          </div>
+        <div class="col-md-6">
+          <select class="form-select" id="transition" bind:value={settings.transition}>
+            <option value="slide">{$_('pages.slider.settings.fields.transition-slide')}</option>
+            <option value="fade">{$_('pages.slider.settings.fields.transition-fade')}</option>
+          </select>
         </div>
       </div>
 
@@ -240,7 +237,28 @@
         </div>
       </div>
 
-      <!-- Caption Style -->
+      <!-- Title Tag -->
+      <div class="row mb-3">
+        <label class="col-md-6 col-form-label" for="titleTag">
+          {$_('pages.slider.settings.fields.title-tag')}
+        </label>
+        <div class="col-md-6">
+          <div class="btn-group w-100" role="group">
+            {#each ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as tag}
+              <input
+                type="radio"
+                class="btn-check"
+                name="titleTag"
+                id="tag-{tag}"
+                value={tag}
+                bind:group={settings.titleTag} />
+              <label class="btn btn-outline-primary btn-sm" for="tag-{tag}">
+                {tag.toUpperCase()}
+              </label>
+            {/each}
+          </div>
+        </div>
+      </div>
       <div class="row mb-3">
         <label class="col-md-6 col-form-label" for="captionStyle">
           {$_('pages.slider.settings.fields.caption-style')}
@@ -250,6 +268,7 @@
             <option value="none">{$_('pages.slider.settings.fields.caption-style-none')}</option>
             <option value="solid">{$_('pages.slider.settings.fields.caption-style-solid')}</option>
             <option value="glass">{$_('pages.slider.settings.fields.caption-style-glass')}</option>
+            <option value="gradient">{$_('pages.slider.settings.fields.caption-style-gradient')}</option>
           </select>
         </div>
       </div>
@@ -355,9 +374,9 @@
 </article>
 
 <script context="module">
-    import ApiUtil, {buildQueryParams} from '@panomc/sdk/utils/api';
+  import ApiUtil, {buildQueryParams} from '@panomc/sdk/utils/api';
 
-    /**
+  /**
    * @type {import("@sveltejs/kit").PageLoad}
    */
   export async function load(event) {

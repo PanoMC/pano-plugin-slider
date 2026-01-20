@@ -61,8 +61,11 @@
           "indicators-help": "Alt kısımdaki sayfa noktalarını gösterir.",
           "controls": "Oklar",
           "controls-help": "Yanlardaki ileri/geri oklarını gösterir.",
-          "fade": "Fade Efekti",
-          "fade-help": "Görsellerin sönerek geçmesini sağlar.",
+          "transition": "Geçiş Animasyonu",
+          "transition-help": "Slaytlar arasındaki geçiş efektini belirler.",
+          "transition-slide": "Sağdan Kayarak (Varsayılan)",
+          "transition-fade": "Sönerek (Fade)",
+          "title-tag": "Başlık Etiketi (SEO)",
           "title-color": "Başlık Rengi",
           "subtitle-color": "Alt Başlık Rengi",
           "caption-background": "Yazı Arkaplan Rengi",
@@ -71,7 +74,8 @@
           "caption-style": "Yazı Alanı Stili",
           "caption-style-none": "Hiçbiri",
           "caption-style-solid": "Düz Renk",
-          "caption-style-glass": "Buzlu Cam (Glassmorphism)"
+          "caption-style-glass": "Buzlu Cam (Glassmorphism)",
+          "caption-style-gradient": "Gradyan (Geçişli)"
         },
         "locations": {
           "home-top": "Ana Sayfa Üstü (Standart)",

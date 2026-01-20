@@ -16,14 +16,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
+    background: var(--overlay-bg, linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%));
     pointer-events: none;
   }
 
   .caption-box {
     padding: 1.5rem 5% 2rem 5%;
     width: 100%;
-    min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,6 +96,7 @@
     width: 30px;
     border-radius: 5px;
   }
+
 </style>
 
 {#if shouldRender && sliderItems.length > 0}
@@ -106,7 +106,7 @@
         id="panoMainSlider"
         bind:this={carouselElement}
         class="carousel slide shadow-sm rounded-4 overflow-hidden"
-        class:carousel-fade={settings.fade}>
+        class:carousel-fade={settings.transition === 'fade'}>
         <!-- Indicators -->
         {#if settings.indicators && sliderItems.length > 1}
           <div class="carousel-indicators">
@@ -126,7 +126,9 @@
         <div class="carousel-inner">
           {#each sliderItems as item, i}
             <div class="carousel-item" class:active={i === 0}>
-              <div class="slider-image-container">
+              <div
+                class="slider-image-container"
+                style={settings.captionStyle !== 'none' ? '--overlay-bg: transparent;' : ''}>
                 <img
                   src={item.imageUrl.startsWith('http') ? item.imageUrl : `${base}${item.imageUrl}`}
                   class="d-block w-100 object-fit-cover"
@@ -138,9 +140,12 @@
                 <div class="carousel-caption d-md-block">
                   <div class="caption-box" style={getBoxStyle(settings)}>
                     {#if item.title}
-                      <h2 class="fw-bold animate-up" style="color: {settings.titleColor};">
+                      <svelte:element
+                        this={settings.titleTag || 'h2'}
+                        class="fw-bold animate-up"
+                        style="color: {settings.titleColor};">
                         {item.title}
-                      </h2>
+                      </svelte:element>
                     {/if}
                     {#if item.subtitle}
                       <p
@@ -270,8 +275,17 @@
     if (settings.captionStyle === 'none') {
       return '--box-bg: transparent; --box-blur: none;';
     }
-    const bg = hexToRgba(settings.captionBackground || '#000000', settings.captionOpacity || 0.5);
+    const opacity = settings.captionOpacity || 0.5;
+    const bg = hexToRgba(settings.captionBackground || '#000000', opacity);
     const blur = settings.captionStyle === 'glass' ? `blur(${settings.blurAmount || 5}px)` : 'none';
+
+    if (settings.captionStyle === 'gradient') {
+      const moreOpaqueBg = hexToRgba(settings.captionBackground || '#000000', Math.min(opacity * 1.8, 0.95));
+      const midBg = hexToRgba(settings.captionBackground || '#000000', opacity);
+      const transparentBg = hexToRgba(settings.captionBackground || '#000000', 0);
+      return `--box-bg: linear-gradient(to top, ${moreOpaqueBg} 0%, ${midBg} 40%, ${transparentBg} 100%); --box-blur: ${blur}; padding-top: 10rem; padding-bottom: 2rem;`;
+    }
+
     return `--box-bg: ${bg}; --box-blur: ${blur};`;
   }
 

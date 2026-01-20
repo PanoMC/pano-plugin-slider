@@ -3,11 +3,7 @@ package com.panomc.plugins.slider.routes.panel
 import com.panomc.platform.annotation.Endpoint
 import com.panomc.platform.auth.AuthProvider
 import com.panomc.platform.db.DatabaseManager
-import com.panomc.platform.model.PanelApi
-import com.panomc.platform.model.Path
-import com.panomc.platform.model.Result
-import com.panomc.platform.model.RouteType
-import com.panomc.platform.model.Successful
+import com.panomc.platform.model.*
 import com.panomc.plugins.slider.SliderPlugin
 import com.panomc.plugins.slider.db.dao.SliderSettingsDao
 import com.panomc.plugins.slider.log.UpdatedSliderSettingsLog
@@ -17,10 +13,7 @@ import io.vertx.ext.web.validation.ValidationHandler
 import io.vertx.ext.web.validation.builder.Bodies
 import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
 import io.vertx.json.schema.SchemaRepository
-import io.vertx.json.schema.common.dsl.Schemas.booleanSchema
-import io.vertx.json.schema.common.dsl.Schemas.numberSchema
-import io.vertx.json.schema.common.dsl.Schemas.objectSchema
-import io.vertx.json.schema.common.dsl.Schemas.stringSchema
+import io.vertx.json.schema.common.dsl.Schemas.*
 
 @Endpoint
 class PanelUpdateSliderSettingsAPI(
@@ -50,13 +43,14 @@ class PanelUpdateSliderSettingsAPI(
                         .requiredProperty("wrap", booleanSchema())
                         .requiredProperty("indicators", booleanSchema())
                         .requiredProperty("controls", booleanSchema())
-                        .requiredProperty("fade", booleanSchema())
+                        .requiredProperty("transition", stringSchema())
                         .requiredProperty("titleColor", stringSchema())
                         .requiredProperty("subtitleColor", stringSchema())
                         .requiredProperty("captionBackground", stringSchema())
                         .requiredProperty("captionOpacity", numberSchema())
                         .requiredProperty("blurAmount", numberSchema())
                         .requiredProperty("captionStyle", stringSchema())
+                        .requiredProperty("titleTag", stringSchema())
                 )
             )
             .build()
@@ -73,20 +67,21 @@ class PanelUpdateSliderSettingsAPI(
         val wrap = body.getBoolean("wrap")
         val indicators = body.getBoolean("indicators")
         val controls = body.getBoolean("controls")
-        val fade = body.getBoolean("fade")
+        val transition = body.getString("transition")
         val titleColor = body.getString("titleColor")
         val subtitleColor = body.getString("subtitleColor")
         val captionBackground = body.getString("captionBackground")
         val captionOpacity = body.getDouble("captionOpacity")
         val blurAmount = body.getInteger("blurAmount")
         val captionStyle = body.getString("captionStyle")
+        val titleTag = body.getString("titleTag")
 
         val sqlClient = databaseManager.getSqlClient()
 
         val keys = listOf(
             "renderHook", "homepageOnly", "autoSlide", "interval", "pauseOnHover",
-            "wrap", "indicators", "controls", "fade", "titleColor",
-            "subtitleColor", "captionBackground", "captionOpacity", "blurAmount", "captionStyle"
+            "wrap", "indicators", "controls", "transition", "titleColor",
+            "subtitleColor", "captionBackground", "captionOpacity", "blurAmount", "captionStyle", "titleTag"
         )
 
         val oldSettings = mutableMapOf<String, String>()
@@ -104,13 +99,14 @@ class PanelUpdateSliderSettingsAPI(
             "wrap" to wrap.toString(),
             "indicators" to indicators.toString(),
             "controls" to controls.toString(),
-            "fade" to fade.toString(),
+            "transition" to transition,
             "titleColor" to titleColor,
             "subtitleColor" to subtitleColor,
             "captionBackground" to captionBackground,
             "captionOpacity" to captionOpacity.toString(),
             "blurAmount" to blurAmount.toString(),
-            "captionStyle" to captionStyle
+            "captionStyle" to captionStyle,
+            "titleTag" to titleTag
         )
 
         for ((key, newValue) in newSettings) {
@@ -127,13 +123,14 @@ class PanelUpdateSliderSettingsAPI(
         sliderSettingsDao.updateSetting("wrap", wrap.toString(), sqlClient)
         sliderSettingsDao.updateSetting("indicators", indicators.toString(), sqlClient)
         sliderSettingsDao.updateSetting("controls", controls.toString(), sqlClient)
-        sliderSettingsDao.updateSetting("fade", fade.toString(), sqlClient)
+        sliderSettingsDao.updateSetting("transition", transition, sqlClient)
         sliderSettingsDao.updateSetting("titleColor", titleColor, sqlClient)
         sliderSettingsDao.updateSetting("subtitleColor", subtitleColor, sqlClient)
         sliderSettingsDao.updateSetting("captionBackground", captionBackground, sqlClient)
         sliderSettingsDao.updateSetting("captionOpacity", captionOpacity.toString(), sqlClient)
         sliderSettingsDao.updateSetting("blurAmount", blurAmount.toString(), sqlClient)
         sliderSettingsDao.updateSetting("captionStyle", captionStyle, sqlClient)
+        sliderSettingsDao.updateSetting("titleTag", titleTag, sqlClient)
 
         val userId = authProvider.getUserIdFromRoutingContext(context)
         val username = databaseManager.userDao.getUsernameFromUserId(userId, sqlClient)!!

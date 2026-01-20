@@ -61,8 +61,11 @@
           "indicators-help": "Show the navigation dots at the bottom.",
           "controls": "Controls",
           "controls-help": "Show next/previous arrows on the sides.",
-          "fade": "Fade Effect",
-          "fade-help": "Use a crossfade transition between slides.",
+          "transition": "Transition Animation",
+          "transition-help": "Determines the transition effect between slides.",
+          "transition-slide": "Slide (Default)",
+          "transition-fade": "Crossfade (Fade)",
+          "title-tag": "Title Tag (SEO)",
           "title-color": "Title Color",
           "subtitle-color": "Subtitle Color",
           "caption-background": "Caption Backdrop Color",
@@ -71,7 +74,8 @@
           "caption-style": "Caption Style",
           "caption-style-none": "None",
           "caption-style-solid": "Solid Color",
-          "caption-style-glass": "Glassmorphism (Blur)"
+          "caption-style-glass": "Glassmorphism (Blur)",
+          "caption-style-gradient": "Gradient"
         },
         "locations": {
           "home-top": "Homepage Top (Standard)",

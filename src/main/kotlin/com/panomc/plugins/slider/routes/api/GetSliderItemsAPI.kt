@@ -2,11 +2,7 @@ package com.panomc.plugins.slider.routes.api
 
 import com.panomc.platform.annotation.Endpoint
 import com.panomc.platform.db.DatabaseManager
-import com.panomc.platform.model.Api
-import com.panomc.platform.model.Path
-import com.panomc.platform.model.Result
-import com.panomc.platform.model.RouteType
-import com.panomc.platform.model.Successful
+import com.panomc.platform.model.*
 import com.panomc.plugins.slider.SliderPlugin
 import com.panomc.plugins.slider.db.dao.SliderDao
 import com.panomc.plugins.slider.db.dao.SliderSettingsDao
@@ -43,12 +39,14 @@ class GetSliderItemsAPI(
         val indicators = sliderSettingsDao.getSetting("indicators", "true", sqlClient)
         val controls = sliderSettingsDao.getSetting("controls", "true", sqlClient)
         val fade = sliderSettingsDao.getSetting("fade", "true", sqlClient)
+        val transition = sliderSettingsDao.getSetting("transition", if (fade == "true") "fade" else "slide", sqlClient)
         val titleColor = sliderSettingsDao.getSetting("titleColor", "#ffffff", sqlClient)
         val subtitleColor = sliderSettingsDao.getSetting("subtitleColor", "#ffffff", sqlClient)
         val captionBackground = sliderSettingsDao.getSetting("captionBackground", "#000000", sqlClient)
         val captionOpacity = sliderSettingsDao.getSetting("captionOpacity", "0.5", sqlClient)
         val blurAmount = sliderSettingsDao.getSetting("blurAmount", "5", sqlClient)
         val captionStyle = sliderSettingsDao.getSetting("captionStyle", "solid", sqlClient)
+        val titleTag = sliderSettingsDao.getSetting("titleTag", "h2", sqlClient)
 
         return Successful(
             mapOf(
@@ -62,13 +60,14 @@ class GetSliderItemsAPI(
                     "wrap" to (wrap == "true"),
                     "indicators" to (indicators == "true"),
                     "controls" to (controls == "true"),
-                    "fade" to (fade == "true"),
+                    "transition" to transition,
                     "titleColor" to titleColor,
                     "subtitleColor" to subtitleColor,
                     "captionBackground" to captionBackground,
                     "captionOpacity" to captionOpacity.toDouble(),
                     "blurAmount" to blurAmount.toInt(),
-                    "captionStyle" to captionStyle
+                    "captionStyle" to captionStyle,
+                    "titleTag" to titleTag
                 )
             )
         )
