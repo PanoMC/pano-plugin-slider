@@ -159,7 +159,7 @@
                         href={item.linkUrl}
                         target={item.openInNewTab ? '_blank' : undefined}
                         rel={item.openInNewTab ? 'noopener noreferrer' : undefined}
-                        class="btn btn-primary btn-sm rounded-pill px-4 animate-up delay-2 shadow-sm">
+                        class="btn btn-secondary rounded-pill w-auto animate__animated animate__slideInUP border border-dark">
                         {$_('pages.slider.table.view-details')}
                       </a>
                     {/if}
