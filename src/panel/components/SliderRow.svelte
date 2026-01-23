@@ -34,7 +34,7 @@
   <div class="dropdown position-static">
     <button
       type="button"
-      class="btn btn-sm btn-link"
+      class="btn btn-link"
       data-bs-toggle="dropdown"
       title={$_('pages.slider.table.actions')}
       aria-label={$_('pages.slider.table.actions')}>
@@ -120,11 +120,11 @@
 </td>
 
 <script>
-    import {_} from '../../main';
-    import {base} from '@panomc/sdk/svelte';
-    import {Date} from '@panomc/sdk/components';
+  import { _ } from '../../main';
+  import { base } from '@panomc/sdk/svelte';
+  import { Date } from '@panomc/sdk/components';
 
-    export let slider;
+  export let slider;
   export let onEditClick;
   export let onDeleteClick;
   export let buttonsLoading = false;

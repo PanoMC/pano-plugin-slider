@@ -159,8 +159,8 @@
                         href={item.linkUrl}
                         target={item.openInNewTab ? '_blank' : undefined}
                         rel={item.openInNewTab ? 'noopener noreferrer' : undefined}
-                        class="btn btn-secondary rounded-pill w-auto animate__animated animate__slideInUP border border-dark">
-                        {$_('pages.slider.table.view-details')}
+                        class="link-secondary w-100 text-decoration-none focus-rin">
+                        {$_('pages.slider.table.view-details')} <i class="fas fa-external-link-square-alt ms-2"></i>
                       </a>
                     {/if}
                   </div>
