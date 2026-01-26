@@ -120,9 +120,9 @@
 </td>
 
 <script>
-  import { _ } from '../../main';
-  import { base } from '@panomc/sdk/svelte';
-  import { Date } from '@panomc/sdk/components';
+  import {_} from '../../main';
+  import {base} from '@panomc/sdk/svelte';
+  import {Date} from '@panomc/sdk/components/panel';
 
   export let slider;
   export let onEditClick;

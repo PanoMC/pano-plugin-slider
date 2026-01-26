@@ -208,9 +208,9 @@
 </div>
 
 <script context="module">
-    import {get, writable} from 'svelte/store';
+  import {get, writable} from 'svelte/store';
 
-    const modalElement = writable();
+  const modalElement = writable();
   const mode = writable('create');
   const slider = writable({
     title: '',
@@ -273,7 +273,7 @@
   import ApiUtil from '@panomc/sdk/utils/api';
   import { base } from '@panomc/sdk/svelte';
   import { showToast } from '@panomc/sdk/toasts';
-  import { DragAndDropZone } from '@panomc/sdk/components';
+  import { DragAndDropZone } from '@panomc/sdk/components/panel';
   import tooltip from '@panomc/sdk/utils/tooltip';
 
   let fileInput;

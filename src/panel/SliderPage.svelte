@@ -430,7 +430,7 @@
     CardFilters,
     CardFiltersItem,
     NoContent,
-  } from '@panomc/sdk/components';
+  } from '@panomc/sdk/components/panel';
 
   import { _ } from '../main';
   import SliderRow from './components/SliderRow.svelte';
