@@ -23,17 +23,17 @@ class SliderPlugin : PanoPlugin() {
     override suspend fun onStart() {
         logger.info("Starting...")
 
-        if (!setupManager.isSetupDone()) {
-            logger.info("Setup is not finished, waiting for setup completion...")
-            return
-        }
-
         startPlugin()
     }
 
     internal suspend fun startPlugin() {
         if (isInitialized) return
         isInitialized = true
+
+        if (!setupManager.isSetupDone()) {
+            logger.info("Setup is not finished, waiting for setup completion...")
+            return
+        }
 
         pluginDatabaseManager.initialize(this)
 
@@ -44,6 +44,8 @@ class SliderPlugin : PanoPlugin() {
 
     override suspend fun onEnable() {
         logger.info("Enabled!")
+
+        startPlugin()
     }
 
     override suspend fun onUninstall() {
