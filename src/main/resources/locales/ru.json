@@ -1,0 +1,129 @@
+{
+    "toasts": {
+        "reorder-success": "Порядок обновлен.",
+        "settings-save-success": "Настройки сохранены.",
+        "item-created": "Слайдер создан.",
+        "item-updated": "Слайдер обновлен.",
+        "item-deleted": "Слайдер удален.",
+        "save-failed": "Произошла ошибка при сохранении: {error}",
+        "delete-failed": "Произошла ошибка при удалении: {error}",
+        "image-size-error": "Размер изображения слишком большой (Макс. 5MB)",
+        "image-type-error": "Неверный тип файла (Допустимы: PNG, JPEG, GIF, WEBP)"
+    },
+    "buttons": {
+        "edit": "Редактировать",
+        "delete": "Удалить",
+        "cancel": "Отмена",
+        "save": "Сохранить",
+        "create": "Создать",
+        "close": "Закрыть",
+        "browse": "Обзор",
+        "change": "Изменить",
+        "visit": "Посетить",
+        "reorder": "Изменить порядок"
+    },
+    "pages": {
+        "slider": {
+            "title": "Слайдер",
+            "description": "Здесь вы можете управлять слайдером на главной странице темы.",
+            "add-slider": "Добавить слайд",
+            "count": "{count} Слайдов",
+            "filters": {
+                "all": "Все",
+                "active": "Активные",
+                "inactive": "Неактивные"
+            },
+            "table": {
+                "content": "Контент",
+                "order": "Порядок",
+                "status": "Статус",
+                "status-active": "Активен",
+                "status-inactive": "Неактивен",
+                "created-at": "Создано",
+                "updated-at": "Обновлено",
+                "actions": "Действия",
+                "view-details": "Посмотреть детали"
+            },
+            "settings": {
+                "title": "Общие настройки",
+                "fields": {
+                    "location": "Место отображения",
+                    "homepage-only": "Только на главной",
+                    "auto-slide": "Автопрокрутка",
+                    "auto-slide-help": "Включить автоматическую прокрутку изображений.",
+                    "interval": "Интервал (мс)",
+                    "interval-help": "Задержка между слайдами (в миллисекундах).",
+                    "pause-on-hover": "Пауза при наведении",
+                    "pause-on-hover-help": "Остановить автопрокрутку при наведении курсора.",
+                    "wrap": "Бесконечный цикл",
+                    "wrap-help": "Вернуться к началу после последнего слайда.",
+                    "indicators": "Индикаторы",
+                    "indicators-help": "Показывать навигационные точки внизу.",
+                    "controls": "Элементы управления",
+                    "controls-help": "Показывать стрелки вперед/назад по бокам.",
+                    "transition": "Анимация перехода",
+                    "transition-help": "Определяет эффект перехода между слайдами.",
+                    "transition-slide": "Слайд (По умолчанию)",
+                    "transition-fade": "Затухание (Fade)",
+                    "title-tag": "Тег заголовка (SEO)",
+                    "title-color": "Цвет заголовка",
+                    "subtitle-color": "Цвет подзаголовка",
+                    "caption-background": "Цвет фона подписи",
+                    "caption-opacity": "Прозрачность фона",
+                    "blur-amount": "Интенсивность размытия",
+                    "caption-style": "Стиль подписи",
+                    "caption-style-none": "Нет",
+                    "caption-style-solid": "Сплошной цвет",
+                    "caption-style-glass": "Стекломорфизм (Размытие)",
+                    "caption-style-gradient": "Градиент"
+                },
+                "locations": {
+                    "home-top": "Верх главной страницы (Стандарт)",
+                    "page-top": "Верх всех страниц (После меню)"
+                }
+            }
+        }
+    },
+    "components": {
+        "slider": {
+            "read-more": "Читать далее",
+            "previous": "Назад",
+            "next": "Вперед",
+            "slide": "Слайд {index}"
+        },
+        "modals": {
+            "add-edit-slider": {
+                "add-title": "Создать слайдер",
+                "edit-title": "Редактировать слайдер",
+                "fields": {
+                    "title": "Заголовок",
+                    "subtitle": "Подзаголовок",
+                    "image-url": "Файл изображения",
+                    "link-url": "Ссылка",
+                    "open-in-new-tab": "Открыть в новой вкладке",
+                    "order": "Порядок отображения"
+                },
+                "no-preview": "Нет предпросмотра изображения",
+                "image-drop-placeholder": "Перетащите или нажмите для загрузки",
+                "image-format-info": "Допустимо: PNG, JPEG, GIF, WEBP. Максимум: 5MB."
+            },
+            "confirm-delete-slider": {
+                "title": "Удалить слайдер",
+                "description": "Вы уверены, что хотите удалить слайдер \"{title}\"? Это действие нельзя отменить."
+            }
+        }
+    },
+    "permissions": {
+        "MANAGE_SLIDER": {
+            "title": "Управление слайдером",
+            "description": "Может создавать, удалять, редактировать слайдер, который будет показан в теме."
+        }
+    },
+    "activity-logs": {
+        "CREATED_SLIDER_ITEM": "<b>{username}</b> создал слайдер \"{title}\".",
+        "UPDATED_SLIDER_ITEM": "<b>{username}</b> обновил слайдер \"{title}\".",
+        "DELETED_SLIDER_ITEM": "<b>{username}</b> удалил слайдер \"{title}\".",
+        "UPDATED_SLIDER_SETTINGS": "<b>{username}</b> обновил настройки слайдера.",
+        "REORDERED_SLIDER_ITEMS": "<b>{username}</b> изменил порядок слайдов."
+    }
+}
