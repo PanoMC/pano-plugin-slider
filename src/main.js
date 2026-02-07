@@ -47,7 +47,7 @@ export default class PanoPluginSlider extends PanoPlugin {
     }
   }
 
-  onContextUpdate(ctx) {}
+  onContextUpdate(ctx) { }
 
-  onUnload() {}
+  onUnload() { }
 }

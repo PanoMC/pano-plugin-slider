@@ -54,6 +54,12 @@
     text-align: left;
   }
 
+  .carousel-control-prev,
+  .carousel-control-next,
+  .carousel-indicators {
+    z-index: 25;
+  }
+
   .animate-up {
     animation: fadeInUp 0.8s ease backwards;
   }
@@ -199,9 +205,9 @@
 {/if}
 
 <script module>
-    import ApiUtil from '@panomc/sdk/utils/api';
+  import ApiUtil from '@panomc/sdk/utils/api';
 
-    export async function load(event) {
+  export async function load(event) {
     if (!event) return { sliderItems: [] };
 
     let output = {};
