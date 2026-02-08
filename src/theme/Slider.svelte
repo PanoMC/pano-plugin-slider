@@ -10,6 +10,16 @@
     height: 400px;
   }
 
+  @media (max-width: 767.98px) {
+    .slider-image-container {
+      height: 250px;
+    }
+
+    .slider-image-container img {
+      height: 250px !important;
+    }
+  }
+
   .slider-overlay {
     position: absolute;
     top: 0;
