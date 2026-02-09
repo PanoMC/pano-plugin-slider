@@ -156,12 +156,15 @@
                 <div class="carousel-caption d-md-block">
                   <div class="caption-box" style={getBoxStyle(settings)}>
                     {#if item.title}
-                      <svelte:element
-                        this={settings.titleTag || 'h2'}
-                        class="fw-bold animate-up"
-                        style="color: {settings.titleColor};">
-                        {item.title}
-                      </svelte:element>
+                      {#if settings.titleTag === 'h1'}
+                        <h1 class="fw-bold animate-up" style="color: {settings.titleColor};">{item.title}</h1>
+                      {:else if settings.titleTag === 'h3'}
+                        <h3 class="fw-bold animate-up" style="color: {settings.titleColor};">{item.title}</h3>
+                      {:else if settings.titleTag === 'h4'}
+                        <h4 class="fw-bold animate-up" style="color: {settings.titleColor};">{item.title}</h4>
+                      {:else}
+                        <h2 class="fw-bold animate-up" style="color: {settings.titleColor};">{item.title}</h2>
+                      {/if}
                     {/if}
                     {#if item.subtitle}
                       <p
