@@ -13,8 +13,6 @@ export default class PanoPluginSlider extends PanoPlugin {
   onLoad() {
     const pano = this.pano;
 
-    console.log('Slider plugin enabled, environment:' + pano.isPanel);
-
     if (pano.isPanel) {
       pano.ui.page.register({
         path: '/view/slider',
