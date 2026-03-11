@@ -24,7 +24,6 @@
             : $_('components.modals.add-edit-slider.add-title')}
         </h5>
         <button
-          title={$_('buttons.close')}
           aria-label={$_('buttons.close')}
           type="button"
           class="btn-close"
@@ -49,7 +48,7 @@
                       on:keydown={(e) => e.key === 'Enter' && fileInput.click()}>
                       <img
                         src={displayImageUrl}
-                        alt="Preview"
+                        alt={$_('components.modals.add-edit-slider.fields.preview')}
                         class="w-100 h-100 object-fit-cover"
                         on:error={onImageError} />
                       <div
@@ -65,7 +64,7 @@
                       type="button"
                       class="btn btn-sm btn-danger position-absolute top-0 start-100 translate-middle"
                       style="z-index: 10;"
-                      title={$_('buttons.delete')}
+                      use:tooltip={[$_('buttons.delete'), { placement: 'bottom' }]}
                       aria-label={$_('buttons.delete')}
                       on:click|stopPropagation={onRemoveImage}
                       on:mouseenter|stopPropagation
@@ -77,20 +76,13 @@
                   <DragAndDropZone
                     class="mb-3"
                     style="aspect-ratio: 16/9;"
+                    icon="fas fa-image fa-2x"
+                    title={$_('components.modals.add-edit-slider.image-drop-placeholder')}
+                    subtitle={$_('components.modals.add-edit-slider.image-format-info')}
                     accept={['image/png', 'image/jpeg', 'image/gif', 'image/webp']}
                     maxFileSize={5 * 1024 * 1024}
                     on:drop={(e) => processFile(e.detail)}
-                    on:error={handleFileError}>
-                    <i class="fas fa-image fa-3x mb-3 opacity-50"></i>
-                    <p class="mb-0 opacity-75 fw-medium">
-                      {$_('components.modals.add-edit-slider.image-drop-placeholder')}
-                    </p>
-                    <small
-                      class="opacity-50 text-uppercase fw-semibold"
-                      style="font-size: 0.7rem; letter-spacing: 0.5px;">
-                      {$_('components.modals.add-edit-slider.image-format-info')}
-                    </small>
-                  </DragAndDropZone>
+                    on:error={handleFileError} />
                 {/if}
               {/key}
             </div>
@@ -194,7 +186,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary w-100" type="submit" disabled={loading || !canSave}>
+          <button class="btn {$mode === 'edit' ? 'btn-primary' : 'btn-secondary'} w-100" type="submit" disabled={loading || !canSave}>
             {#if loading}
               <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"
               ></span>
@@ -208,7 +200,7 @@
 </div>
 
 <script context="module">
-  import {get, writable} from 'svelte/store';
+  import { get, writable } from 'svelte/store';
 
   const modalElement = writable();
   const mode = writable('create');
