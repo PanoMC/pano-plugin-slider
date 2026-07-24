@@ -36,7 +36,7 @@
       type="button"
       class="btn btn-link"
       data-bs-toggle="dropdown"
-      use:tooltip={[$_('pages.slider.table.actions'), { placement: 'bottom' }]}
+      title={$_('pages.slider.table.actions')}
       aria-label={$_('pages.slider.table.actions')}>
       <span class="fas fa-ellipsis-v"></span>
     </button>
@@ -63,14 +63,14 @@
 <td
   class="align-middle text-center p-0"
   style="width: 40px; cursor: grab;"
-  use:tooltip={[$_('buttons.reorder'), { placement: 'bottom' }]}
+  title={$_('buttons.reorder')}
   aria-label={$_('buttons.reorder')}>
   <i class="fas fa-grip-vertical"></i>
 </td>
 <td
   class="align-middle clickable"
   on:click={() => onEditClick(slider.id)}
-  use:tooltip={[$_('buttons.edit'), { placement: 'bottom' }]}
+  title={$_('buttons.edit')}
   aria-label={$_('buttons.edit')}>
   {#if slider.imageUrl}
     <div class="slider-preview">
@@ -94,7 +94,7 @@
       type="button"
       class="btn btn-link p-0 text-start text-decoration-none w-100 text-truncate"
       on:click={() => onEditClick(slider.id)}
-      use:tooltip={[$_('buttons.edit'), { placement: 'bottom' }]}>
+      title={$_('buttons.edit')}>
       <span class="fw-bold d-block text-truncate">{slider.title}</span>
       {#if slider.subtitle}
         <div class="small text-truncate">{slider.subtitle}</div>
@@ -123,7 +123,6 @@
   import { _ } from '../../main';
   import { base } from '@panomc/sdk/svelte';
   import { Date } from '@panomc/sdk/components/panel';
-  import tooltip from '@panomc/sdk/utils/tooltip';
 
   export let slider;
   export let onEditClick;

@@ -43,7 +43,7 @@
                       style="aspect-ratio: 16/9; cursor: pointer;"
                       role="button"
                       tabindex="0"
-                      use:tooltip={[$_('buttons.change'), { placement: 'bottom' }]}
+                      title={$_('buttons.change')}
                       on:click={() => fileInput.click()}
                       on:keydown={(e) => e.key === 'Enter' && fileInput.click()}>
                       <img
@@ -64,7 +64,7 @@
                       type="button"
                       class="btn btn-sm btn-danger position-absolute top-0 start-100 translate-middle"
                       style="z-index: 10;"
-                      use:tooltip={[$_('buttons.delete'), { placement: 'bottom' }]}
+                      title={$_('buttons.delete')}
                       aria-label={$_('buttons.delete')}
                       on:click|stopPropagation={onRemoveImage}
                       on:mouseenter|stopPropagation
@@ -266,7 +266,6 @@
   import { base } from '@panomc/sdk/svelte';
   import { showToast } from '@panomc/sdk/toasts';
   import { DragAndDropZone } from '@panomc/sdk/components/panel';
-  import tooltip from '@panomc/sdk/utils/tooltip';
 
   let fileInput;
 
