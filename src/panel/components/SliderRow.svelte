@@ -36,7 +36,6 @@
       type="button"
       class="btn btn-link"
       data-bs-toggle="dropdown"
-      title={$_('pages.slider.table.actions')}
       use:tooltip={[$_('pages.slider.table.actions'), { placement: 'bottom' }]}
       aria-label={$_('pages.slider.table.actions')}>
       <span class="fas fa-ellipsis-v"></span>
