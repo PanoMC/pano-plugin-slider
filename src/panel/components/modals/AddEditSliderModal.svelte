@@ -48,7 +48,7 @@
                       on:keydown={(e) => e.key === 'Enter' && fileInput.click()}>
                       <img
                         src={displayImageUrl}
-                        alt={$_('components.modals.add-edit-slider.fields.preview')}
+                        alt={$_('components.modals.add-edit-slider.no-preview')}
                         class="w-100 h-100 object-fit-cover"
                         on:error={onImageError} />
                       <div
