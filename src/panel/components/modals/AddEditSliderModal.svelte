@@ -261,10 +261,9 @@
 </script>
 
 <script>
-  import { _ } from '../../../main';
+  import { _, showSuccessToast, showErrorToast } from '../../../main';
   import ApiUtil from '@panomc/sdk/utils/api';
   import { base } from '@panomc/sdk/svelte';
-  import { showToast } from '@panomc/sdk/toasts';
   import { DragAndDropZone } from '@panomc/sdk/components/panel';
 
   let fileInput;
@@ -301,9 +300,9 @@
   function handleFileError(event) {
     const { error } = event.detail;
     if (error === 'INVALID_SIZE') {
-      showToast($_('toasts.image-size-error'));
+      showErrorToast($_('toasts.image-size-error'));
     } else if (error === 'INVALID_TYPE') {
-      showToast($_('toasts.image-type-error'));
+      showErrorToast($_('toasts.image-type-error'));
     }
   }
 
@@ -319,13 +318,13 @@
     const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
     if (file.size > maxSize) {
-      showToast($_('toasts.image-size-error'));
+      showErrorToast($_('toasts.image-size-error'));
       if (fileInput) fileInput.value = '';
       return;
     }
 
     if (!allowedTypes.includes(file.type)) {
-      showToast($_('toasts.image-type-error'));
+      showErrorToast($_('toasts.image-type-error'));
       if (fileInput) fileInput.value = '';
       return;
     }
@@ -375,17 +374,17 @@
       });
 
       if (result.result === 'ok') {
-        showToast(isEdit ? $_('toasts.item-updated') : $_('toasts.item-created'));
+        showSuccessToast(isEdit ? $_('toasts.item-updated') : $_('toasts.item-created'));
         hide();
         callback();
       } else {
-        showToast($_('toasts.save-failed'), {
+        showErrorToast($_('toasts.save-failed'), {
           values: { error: result.error },
         });
       }
     } catch (e) {
       console.error(e);
-      showToast($_('toasts.save-failed'), { values: { error: e.message } });
+      showErrorToast($_('toasts.save-failed'), { values: { error: e.message } });
     } finally {
       $loadingStore = false;
     }

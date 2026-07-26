@@ -425,7 +425,6 @@
 <script>
   import { base, page, goto } from '@panomc/sdk/svelte';
   import { flip } from 'svelte/animate';
-  import { showToast } from '@panomc/sdk/toasts';
   import {
     PageActions,
     CardHeader,
@@ -434,7 +433,7 @@
     NoContent,
   } from '@panomc/sdk/components/panel';
 
-  import { _ } from '../main';
+  import { _, showSuccessToast, showErrorToast } from '../main';
   import SliderRow from './components/SliderRow.svelte';
   import ConfirmDeleteSliderModal, {
     show as showDeleteModal,
@@ -474,14 +473,14 @@
       });
 
       if (result.result === 'ok') {
-        showToast($_('toasts.settings-save-success'));
+        showSuccessToast($_('toasts.settings-save-success'));
         initialSettingsStr = JSON.stringify(settings);
       } else {
-        showToast(result.error || 'Error saving settings');
+        showErrorToast(result.error || 'Error saving settings');
       }
     } catch (e) {
       console.error(e);
-      showToast('Error saving settings');
+      showErrorToast('Error saving settings');
     } finally {
       savingSettings = false;
     }
@@ -537,7 +536,7 @@
     });
 
     if (res.result === 'ok') {
-      showToast($_('toasts.reorder-success'));
+      showSuccessToast($_('toasts.reorder-success'));
       await refreshData();
     }
   }

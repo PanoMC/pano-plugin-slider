@@ -68,9 +68,8 @@
 </script>
 
 <script>
-  import { _ } from '../../../main';
+  import { _, showSuccessToast, showErrorToast } from '../../../main';
   import ApiUtil from '@panomc/sdk/utils/api';
-  import { showToast } from '@panomc/sdk/toasts';
 
   $: loading = $loadingStore;
 
@@ -83,15 +82,15 @@
       });
 
       if (result.result === 'ok') {
-        showToast($_('toasts.item-deleted'));
+        showSuccessToast($_('toasts.item-deleted'));
         hide();
         callback();
       } else {
-        showToast($_('toasts.delete-failed'), { values: { error: result.error } });
+        showErrorToast($_('toasts.delete-failed'), { values: { error: result.error } });
       }
     } catch (e) {
       console.error(e);
-      showToast($_('toasts.delete-failed'), { values: { error: e.message } });
+      showErrorToast($_('toasts.delete-failed'), { values: { error: e.message } });
     } finally {
       $loadingStore = false;
     }
