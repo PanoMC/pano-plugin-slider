@@ -1,88 +1,129 @@
 <style>
-  .slider-wrapper {
+  /* Kept rules: the z-index of the wrapper, the image heights, the layout of the caption box and its fade-in animation.
+     Gone: the round-dot restyle of Bootstrap's carousel indicators, the text shadows, the redundant animation-name rule and
+     the z-index 20/25 pair of caption and controls (plugin.css is layered, so Bootstrap's own z-index: 1 on the controls
+     would win and the caption would cover them). */
+  .slider-slider__wrapper {
     position: relative;
     z-index: 10;
   }
 
-  .slider-image-container {
+  .slider-slider__image-container {
     position: relative;
     width: 100%;
     height: 400px;
   }
 
+  .slider-slider__image {
+    height: 400px;
+    object-fit: cover;
+  }
+
+  /* Next to the sidebar (page:home:top): the carousel has the ratio of a 1x1 sidebar card and is pulled to the column edges
+     by cancelling the grid gutter. */
+  .slider-slider--home {
+    --slider-gutter: calc(var(--pano-space, 1rem) * 1.5);
+    margin-left: calc(var(--slider-gutter) * -0.5);
+    margin-right: calc(var(--slider-gutter) * -0.5);
+    width: calc(100% + var(--slider-gutter));
+  }
+
+  .slider-slider--home .slider-slider__carousel {
+    aspect-ratio: 2.05 / 1;
+  }
+
+  /* Global top (page:top): full width, panoramic ratio. */
+  .slider-slider--top .slider-slider__carousel {
+    aspect-ratio: 3.5 / 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .slider-slider--home .slider-slider__carousel .carousel-inner,
+  .slider-slider--home .slider-slider__carousel .carousel-item,
+  .slider-slider--top .slider-slider__carousel .carousel-inner,
+  .slider-slider--top .slider-slider__carousel .carousel-item,
+  .slider-slider--home .slider-slider__image-container,
+  .slider-slider--top .slider-slider__image-container,
+  .slider-slider--home .slider-slider__image,
+  .slider-slider--top .slider-slider__image {
+    height: 100%;
+  }
+
+  /* Caption links sit on the image: keep them readable. */
+  .slider-slider__caption-box a {
+    color: var(--pano-color-secondary);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .slider-slider__caption-box a:hover {
+    opacity: 0.8;
+  }
+
   @media (max-width: 767.98px) {
-    .slider-image-container {
+    .slider-slider__image-container {
       height: 250px;
     }
 
-    .slider-image-container img {
-      height: 250px !important;
+    .slider-slider__image {
+      height: 250px;
+    }
+
+    .slider-slider--home .slider-slider__image,
+    .slider-slider--top .slider-slider__image {
+      height: 100%;
     }
   }
 
-  .slider-overlay {
+  .slider-slider__overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--overlay-bg, linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%));
+    background: var(--slider-overlay-bg, linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%));
     pointer-events: none;
   }
 
-  .caption-box {
+  .slider-slider__caption-box {
     padding: 1.5rem 5% 2rem 5%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--box-bg);
-    backdrop-filter: var(--box-blur);
-    -webkit-backdrop-filter: var(--box-blur);
+    background: var(--slider-box-bg);
+    backdrop-filter: var(--slider-box-blur);
+    -webkit-backdrop-filter: var(--slider-box-blur);
     transition: all 0.3s ease;
   }
 
-  .caption-box h2 {
+  .slider-slider__caption-box h2 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
-  .caption-box p {
+  .slider-slider__caption-box p {
     font-size: 1.1rem;
     margin-bottom: 1.25rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
-  .carousel-caption {
+  .slider-slider__caption {
     left: 0;
     right: 0;
     bottom: 0;
     padding: 0;
     margin: 0;
-    z-index: 20;
     text-align: left;
   }
 
-  .carousel-control-prev,
-  .carousel-control-next,
-  .carousel-indicators {
-    z-index: 25;
+  .slider-slider__animate-up {
+    animation: slider-fade-in-up 0.8s ease backwards;
   }
 
-  .animate-up {
-    animation: fadeInUp 0.8s ease backwards;
-  }
-
-  .delay-1 {
+  .slider-slider__delay-1 {
     animation-delay: 0.2s;
   }
 
-  .delay-2 {
-    animation-delay: 0.4s;
-  }
-
-  @keyframes fadeInUp {
+  @keyframes slider-fade-in-up {
     from {
       opacity: 0;
       transform: translateY(20px);
@@ -92,36 +133,15 @@
       transform: translateY(0);
     }
   }
-
-  .carousel-item.active .animate-up {
-    animation-name: fadeInUp;
-  }
-
-  :global(.carousel-indicators [data-bs-target]) {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin: 0 5px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    background-color: transparent;
-    transition: all 0.3s ease;
-  }
-
-  :global(.carousel-indicators .active) {
-    background-color: #fff !important;
-    width: 30px;
-    border-radius: 5px;
-  }
-
 </style>
 
 {#if shouldRender && sliderItems.length > 0}
-  <div class:container={hookName === 'page:top'}>
-    <div class="slider-wrapper">
+  <div class="slider-slider {isPageTop ? 'slider-slider--top container' : 'slider-slider--home'}">
+    <div class="slider-slider__wrapper">
       <div
         id="panoMainSlider"
         bind:this={carouselElement}
-        class="carousel slide shadow-sm rounded-4 overflow-hidden"
+        class="slider-slider__carousel carousel shadow-sm rounded-4 overflow-hidden"
         class:carousel-fade={settings.transition === 'fade'}>
         <!-- Indicators -->
         {#if settings.indicators && sliderItems.length > 1}
@@ -143,32 +163,31 @@
           {#each sliderItems as item, i}
             <div class="carousel-item" class:active={i === 0}>
               <div
-                class="slider-image-container"
-                style={settings.captionStyle !== 'none' ? '--overlay-bg: transparent;' : ''}>
+                class="slider-slider__image-container"
+                style={settings.captionStyle !== 'none' ? '--slider-overlay-bg: transparent;' : ''}>
                 <img
                   src={item.imageUrl.startsWith('http') ? item.imageUrl : `${base}${item.imageUrl}`}
-                  class="d-block w-100 object-fit-cover"
-                  alt={item.title}
-                  style="height: 400px;" />
-                <div class="slider-overlay"></div>
+                  class="slider-slider__image d-block w-100 object-fit-cover"
+                  alt={item.title} />
+                <div class="slider-slider__overlay"></div>
               </div>
               {#if item.title || item.subtitle || item.linkUrl}
-                <div class="carousel-caption d-md-block">
-                  <div class="caption-box" style={getBoxStyle(settings)}>
+                <div class="slider-slider__caption carousel-caption d-md-block">
+                  <div class="slider-slider__caption-box" style={getBoxStyle(settings)}>
                     {#if item.title}
                       {#if settings.titleTag === 'h1'}
-                        <h1 class="fw-bold animate-up" style="color: {settings.titleColor};">{item.title}</h1>
+                        <h1 class="slider-slider__title fw-bold slider-slider__animate-up" style="color: {settings.titleColor};">{item.title}</h1>
                       {:else if settings.titleTag === 'h3'}
-                        <h3 class="fw-bold animate-up" style="color: {settings.titleColor};">{item.title}</h3>
+                        <h3 class="slider-slider__title-2 fw-bold slider-slider__animate-up" style="color: {settings.titleColor};">{item.title}</h3>
                       {:else if settings.titleTag === 'h4'}
-                        <h4 class="fw-bold animate-up" style="color: {settings.titleColor};">{item.title}</h4>
+                        <h4 class="slider-slider__title-3 fw-bold slider-slider__animate-up" style="color: {settings.titleColor};">{item.title}</h4>
                       {:else}
-                        <h2 class="fw-bold animate-up" style="color: {settings.titleColor};">{item.title}</h2>
+                        <h2 class="slider-slider__title-4 fw-bold slider-slider__animate-up" style="color: {settings.titleColor};">{item.title}</h2>
                       {/if}
                     {/if}
                     {#if item.subtitle}
                       <p
-                        class="opacity-75 animate-up delay-1"
+                        class="opacity-75 slider-slider__animate-up slider-slider__delay-1"
                         style="color: {settings.subtitleColor};">
                         {item.subtitle}
                       </p>
@@ -178,7 +197,7 @@
                         href={item.linkUrl}
                         target={item.openInNewTab ? '_blank' : undefined}
                         rel={item.openInNewTab ? 'noopener noreferrer' : undefined}
-                        class="link-secondary w-100 text-decoration-none focus-rin">
+                        class="link-secondary w-100 text-decoration-none">
                         {$_('pages.slider.table.view-details')} <i class="fas fa-external-link-square-alt ms-2"></i>
                       </a>
                     {/if}
@@ -218,7 +237,8 @@
 {/if}
 
 <script module>
-  import ApiUtil from '@panomc/sdk/utils/api';
+  export const view = { hook: ['page:home:top', 'page:top'] };
+  import { api } from '@panomc/sdk/plugin-api';
 
   export async function load(event) {
     if (!event) return { sliderItems: [] };
@@ -226,22 +246,22 @@
     let output = {};
 
     try {
-      const res = await ApiUtil.get({
-        path: '/api/slider/items',
+      const res = await api.get({
+        path: '/items',
         request: event,
       });
 
       if (
         res.settings.renderHook !== event.hookName ||
         (res.settings.homepageOnly && event.url.pathname !== '/') ||
-        res.sliderItems.length === 0
+        (res.items ?? []).length === 0
       ) {
         output = { hookOptions: { invisible: true } };
       }
 
       output = {
         ...output,
-        sliderItems: res.sliderItems || [],
+        sliderItems: res.items || [],
         settings: res.settings || {
           renderHook: 'page:home:top',
           homepageOnly: true,
@@ -275,7 +295,11 @@
 
 <script>
   import { base, page } from '@panomc/sdk/svelte';
-  import { _ } from '../main';
+  import { derived } from 'svelte/store';
+  import { _ as i18n } from '@panomc/sdk/utils/language';
+
+  // plugin translations: `$_('key')` reads `plugins.pano-plugin-slider.key`
+  const _ = derived(i18n, ($_fn) => (key, options) => $_fn(`plugins.pano-plugin-slider.${key}`, options));
 
   function hexToRgba(hex, opacity) {
     let c;
@@ -292,7 +316,7 @@
 
   function getBoxStyle(settings) {
     if (settings.captionStyle === 'none') {
-      return '--box-bg: transparent; --box-blur: none;';
+      return '--slider-box-bg: transparent; --slider-box-blur: none;';
     }
     const opacity = settings.captionOpacity || 0.5;
     const bg = hexToRgba(settings.captionBackground || '#000000', opacity);
@@ -302,10 +326,10 @@
       const moreOpaqueBg = hexToRgba(settings.captionBackground || '#000000', Math.min(opacity * 1.8, 0.95));
       const midBg = hexToRgba(settings.captionBackground || '#000000', opacity);
       const transparentBg = hexToRgba(settings.captionBackground || '#000000', 0);
-      return `--box-bg: linear-gradient(to top, ${moreOpaqueBg} 0%, ${midBg} 40%, ${transparentBg} 100%); --box-blur: ${blur}; padding-top: 10rem; padding-bottom: 2rem;`;
+      return `--slider-box-bg: linear-gradient(to top, ${moreOpaqueBg} 0%, ${midBg} 40%, ${transparentBg} 100%); --slider-box-blur: ${blur}; padding-top: 10rem; padding-bottom: 2rem;`;
     }
 
-    return `--box-bg: ${bg}; --box-blur: ${blur};`;
+    return `--slider-box-bg: ${bg}; --slider-box-blur: ${blur};`;
   }
 
   let { sliderItems = [], settings = {}, hookName } = $props();
@@ -323,6 +347,8 @@
     return true;
   });
 
+  let isPageTop = $derived(hookName === 'page:top');
+
   let carouselElement = $state();
   let carouselInstance = null;
 
@@ -334,6 +360,8 @@
 
     const initCarousel = () => {
       if (window.bootstrap?.Carousel) {
+        // Bootstrap animates the slide change only when the carousel has the `slide` class; it has no style of its own.
+        carouselElement.classList.add('slide');
         carouselInstance = new window.bootstrap.Carousel(carouselElement, {
           interval: settings.autoSlide ? settings.interval : false,
           pause: settings.pauseOnHover ? 'hover' : false,

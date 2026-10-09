@@ -5,6 +5,7 @@ import com.panomc.platform.auth.AuthProvider
 import com.panomc.platform.db.DatabaseManager
 import com.panomc.platform.error.BadRequest
 import com.panomc.platform.model.*
+import com.panomc.platform.route.ApiPaths
 import com.panomc.plugins.slider.SliderPlugin
 import com.panomc.plugins.slider.db.dao.SliderDao
 import com.panomc.plugins.slider.db.model.SliderItem
@@ -17,7 +18,7 @@ import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.BodyHandler
 import io.vertx.ext.web.validation.RequestPredicate
 import io.vertx.ext.web.validation.ValidationHandler
-import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
+import com.panomc.platform.schema.dsl.ValidationHandlerBuilder
 import io.vertx.json.schema.SchemaRepository
 import io.vertx.json.schema.common.dsl.Schemas.*
 import java.io.File
@@ -27,7 +28,7 @@ class PanelAddSliderItemAPI(
     private val plugin: SliderPlugin,
     private val sliderDao: SliderDao
 ) : PanelApi() {
-    override val paths = listOf(Path("/api/panel/slider/items", RouteType.POST))
+    override val paths = listOf(Path("/items", RouteType.POST))
 
     private val authProvider by lazy {
         plugin.applicationContext.getBean(AuthProvider::class.java)
@@ -45,7 +46,7 @@ class PanelAddSliderItemAPI(
     override fun getValidationHandler(schemaRepository: SchemaRepository): ValidationHandler =
         ValidationHandlerBuilder.create(schemaRepository)
             .body(
-                io.vertx.ext.web.validation.builder.Bodies.multipartFormData(
+                com.panomc.platform.schema.dsl.Bodies.multipartFormData(
                     objectSchema()
                         .optionalProperty("title", stringSchema())
                         .optionalProperty("subtitle", stringSchema())
@@ -73,7 +74,7 @@ class PanelAddSliderItemAPI(
         val title = data.getString("title") ?: ""
 
         val imageFileName = saveUploadedFile(fileUpload)
-        val imageUrl = "/api/slider/items/image/$imageFileName"
+        val imageUrl = ApiPaths.plugin(plugin.pluginId, "/items/image/$imageFileName")
 
         val sliderItem = SliderItem(
             title = title,

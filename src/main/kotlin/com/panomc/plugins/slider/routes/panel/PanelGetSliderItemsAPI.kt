@@ -14,7 +14,7 @@ import com.panomc.plugins.slider.permission.ManageSliderPermission
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.RequestPredicate
 import io.vertx.ext.web.validation.ValidationHandler
-import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
+import com.panomc.platform.schema.dsl.ValidationHandlerBuilder
 import io.vertx.json.schema.SchemaRepository
 import io.vertx.json.schema.common.dsl.Schemas.booleanSchema
 import io.vertx.json.schema.common.dsl.Schemas.numberSchema
@@ -26,7 +26,7 @@ class PanelGetSliderItemsAPI(
     private val plugin: SliderPlugin,
     private val sliderDao: SliderDao
 ) : PanelApi() {
-    override val paths = listOf(Path("/api/panel/slider/items", RouteType.GET))
+    override val paths = listOf(Path("/items", RouteType.GET))
 
     private val authProvider by lazy {
         plugin.applicationContext.getBean(AuthProvider::class.java)
@@ -48,7 +48,7 @@ class PanelGetSliderItemsAPI(
 
         return Successful(
             mapOf(
-                "sliderItems" to sliderItems
+                "items" to sliderItems
             )
         )
     }

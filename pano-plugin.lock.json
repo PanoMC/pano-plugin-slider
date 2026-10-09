@@ -1,0 +1,38 @@
+{
+  "controllers": {},
+  "format": 1,
+  "views": {
+    "slider:Slider": {
+      "classes": [
+        "slider-slider",
+        "slider-slider__animate-up",
+        "slider-slider__caption",
+        "slider-slider__caption-box",
+        "slider-slider__carousel",
+        "slider-slider__delay-1",
+        "slider-slider__image",
+        "slider-slider__image-container",
+        "slider-slider__overlay",
+        "slider-slider__title",
+        "slider-slider__title-2",
+        "slider-slider__title-3",
+        "slider-slider__title-4",
+        "slider-slider__wrapper"
+      ],
+      "contract": 1,
+      "hooks": [],
+      "props": {
+        "hookName": {
+          "required": true
+        },
+        "settings": {
+          "required": false
+        },
+        "sliderItems": {
+          "required": false
+        }
+      },
+      "slots": []
+    }
+  }
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "method": "GET",
+    "old": "/api/panel/slider/items",
+    "new": "/api/plugins/pano-plugin-slider/panel/items",
+    "relative": "/plugins/pano-plugin-slider/panel/items",
+    "class": "PanelGetSliderItemsAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/panel/PanelGetSliderItemsAPI.kt"
+  },
+  {
+    "method": "POST",
+    "old": "/api/panel/slider/items",
+    "new": "/api/plugins/pano-plugin-slider/panel/items",
+    "relative": "/plugins/pano-plugin-slider/panel/items",
+    "class": "PanelAddSliderItemAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/panel/PanelAddSliderItemAPI.kt"
+  },
+  {
+    "method": "DELETE",
+    "old": "/api/panel/slider/items/:id",
+    "new": "/api/plugins/pano-plugin-slider/panel/items/:id",
+    "relative": "/plugins/pano-plugin-slider/panel/items/:id",
+    "class": "PanelDeleteSliderItemAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/panel/PanelDeleteSliderItemAPI.kt"
+  },
+  {
+    "method": "PUT",
+    "old": "/api/panel/slider/items/:id",
+    "new": "/api/plugins/pano-plugin-slider/panel/items/:id",
+    "relative": "/plugins/pano-plugin-slider/panel/items/:id",
+    "class": "PanelUpdateSliderItemAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/panel/PanelUpdateSliderItemAPI.kt"
+  },
+  {
+    "method": "GET",
+    "old": "/api/panel/slider/items/image/:fileName",
+    "new": "/api/plugins/pano-plugin-slider/panel/items/image/:fileName",
+    "relative": "/plugins/pano-plugin-slider/panel/items/image/:fileName",
+    "class": "PanelGetSliderImageAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/panel/PanelGetSliderImageAPI.kt"
+  },
+  {
+    "method": "POST",
+    "old": "/api/panel/slider/items/reorder",
+    "new": "/api/plugins/pano-plugin-slider/panel/items/reorder",
+    "relative": "/plugins/pano-plugin-slider/panel/items/reorder",
+    "class": "PanelReorderSliderItemsAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/panel/PanelReorderSliderItemsAPI.kt"
+  },
+  {
+    "method": "GET",
+    "old": "/api/panel/slider/settings",
+    "new": "/api/plugins/pano-plugin-slider/panel/settings",
+    "relative": "/plugins/pano-plugin-slider/panel/settings",
+    "class": "PanelGetSliderSettingsAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/panel/PanelGetSliderSettingsAPI.kt"
+  },
+  {
+    "method": "POST",
+    "old": "/api/panel/slider/settings",
+    "new": "/api/plugins/pano-plugin-slider/panel/settings",
+    "relative": "/plugins/pano-plugin-slider/panel/settings",
+    "class": "PanelUpdateSliderSettingsAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/panel/PanelUpdateSliderSettingsAPI.kt"
+  },
+  {
+    "method": "GET",
+    "old": "/api/slider/items",
+    "new": "/api/plugins/pano-plugin-slider/items",
+    "relative": "/plugins/pano-plugin-slider/items",
+    "class": "GetSliderItemsAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/api/GetSliderItemsAPI.kt"
+  },
+  {
+    "method": "GET",
+    "old": "/api/slider/items/image/:fileName",
+    "new": "/api/plugins/pano-plugin-slider/items/image/:fileName",
+    "relative": "/plugins/pano-plugin-slider/items/image/:fileName",
+    "class": "GetSliderImageAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/slider/routes/api/GetSliderImageAPI.kt"
+  }
+]

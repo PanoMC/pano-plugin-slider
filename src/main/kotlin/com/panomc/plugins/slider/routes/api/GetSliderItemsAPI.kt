@@ -8,8 +8,10 @@ import com.panomc.plugins.slider.db.dao.SliderDao
 import com.panomc.plugins.slider.db.dao.SliderSettingsDao
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
-import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
+import com.panomc.platform.schema.dsl.ValidationHandlerBuilder
 import io.vertx.json.schema.SchemaRepository
+import com.panomc.platform.schema.EndpointDoc
+import io.vertx.json.schema.common.dsl.Schemas.*
 
 @Endpoint
 class GetSliderItemsAPI(
@@ -17,7 +19,50 @@ class GetSliderItemsAPI(
     private val sliderDao: SliderDao,
     private val sliderSettingsDao: SliderSettingsDao
 ) : Api() {
-    override val paths = listOf(Path("/api/slider/items", RouteType.GET))
+    override val paths = listOf(Path("/items", RouteType.GET))
+
+    override val doc = EndpointDoc(
+        summary = "The active slides and the look of the slider.",
+        tag = "slider",
+        response = objectSchema()
+            .requiredProperty(
+                "items",
+                arraySchema().items(
+                    objectSchema()
+                    .requiredProperty("id", intSchema())
+                    .requiredProperty("title", stringSchema())
+                    .requiredProperty("imageUrl", stringSchema())
+                    .requiredProperty("active", booleanSchema())
+                    .optionalProperty("subtitle", stringSchema().nullable())
+                    .optionalProperty("imageFileName", stringSchema().nullable())
+                    .optionalProperty("linkUrl", stringSchema().nullable())
+                    .optionalProperty("openInNewTab", booleanSchema())
+                    .optionalProperty("itemOrder", intSchema())
+                    .optionalProperty("createdAt", intSchema())
+                    .optionalProperty("updatedAt", intSchema())
+                )
+            )
+            .requiredProperty(
+                "settings",
+                objectSchema()
+                    .requiredProperty("renderHook", stringSchema())
+                    .requiredProperty("homepageOnly", booleanSchema())
+                    .requiredProperty("autoSlide", booleanSchema())
+                    .requiredProperty("interval", intSchema())
+                    .requiredProperty("pauseOnHover", booleanSchema())
+                    .requiredProperty("wrap", booleanSchema())
+                    .requiredProperty("indicators", booleanSchema())
+                    .requiredProperty("controls", booleanSchema())
+                    .requiredProperty("transition", stringSchema())
+                    .requiredProperty("titleColor", stringSchema())
+                    .requiredProperty("subtitleColor", stringSchema())
+                    .requiredProperty("captionBackground", stringSchema())
+                    .requiredProperty("captionOpacity", numberSchema())
+                    .requiredProperty("blurAmount", intSchema())
+                    .requiredProperty("captionStyle", stringSchema())
+                    .requiredProperty("titleTag", stringSchema())
+            )
+    )
 
     private val databaseManager by lazy {
         plugin.applicationContext.getBean(DatabaseManager::class.java)
@@ -50,7 +95,7 @@ class GetSliderItemsAPI(
 
         return Successful(
             mapOf(
-                "sliderItems" to sliderItems,
+                "items" to sliderItems,
                 "settings" to mapOf(
                     "renderHook" to renderHook,
                     "homepageOnly" to (homepageOnly == "true"),

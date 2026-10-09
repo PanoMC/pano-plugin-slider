@@ -1,6 +1,6 @@
 import {PanoPlugin, viewComponent} from '@panomc/sdk';
-import {derived} from 'svelte/store';
-import {_ as i18n} from '@panomc/sdk/utils/language';
+import { derived } from 'svelte/store';
+import { _ as i18n } from '@panomc/sdk/utils/language';
 import { showToast } from '@panomc/sdk/toasts';
 
 const pluginId = 'pano-plugin-slider';
@@ -48,17 +48,7 @@ export default class PanoPluginSlider extends PanoPlugin {
         return items;
       });
     } else {
-      const sliderComponent = viewComponent(() => import('./theme/Slider.svelte'));
-
-      pano.ui.hook.register({
-        name: 'page:home:top',
-        component: sliderComponent,
-      });
-
-      pano.ui.hook.register({
-        name: 'page:top',
-        component: sliderComponent,
-      });
+      // The slider mounts on `page:home:top` and `page:top` through `export const view` in Slider.svelte.
     }
   }
 

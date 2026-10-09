@@ -10,8 +10,8 @@ import com.panomc.plugins.slider.log.UpdatedSliderSettingsLog
 import com.panomc.plugins.slider.permission.ManageSliderPermission
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
-import io.vertx.ext.web.validation.builder.Bodies
-import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
+import com.panomc.platform.schema.dsl.Bodies
+import com.panomc.platform.schema.dsl.ValidationHandlerBuilder
 import io.vertx.json.schema.SchemaRepository
 import io.vertx.json.schema.common.dsl.Schemas.*
 
@@ -20,7 +20,7 @@ class PanelUpdateSliderSettingsAPI(
     private val plugin: SliderPlugin,
     private val sliderSettingsDao: SliderSettingsDao
 ) : PanelApi() {
-    override val paths = listOf(Path("/api/panel/slider/settings", RouteType.POST))
+    override val paths = listOf(Path("/settings", RouteType.POST))
 
     private val authProvider by lazy {
         plugin.applicationContext.getBean(AuthProvider::class.java)

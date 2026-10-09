@@ -77,7 +77,7 @@
       <img
         src={slider.imageUrl.startsWith('http')
           ? slider.imageUrl
-          : `${base}${slider.imageUrl}${slider.imageUrl.includes('?') ? '&' : '?'}thumbnail=true`}
+          : `${slider.imageUrl}${slider.imageUrl.includes('?') ? '&' : '?'}thumbnail=true`}
         alt={slider.title}
         class="rounded" />
     </div>
@@ -121,7 +121,6 @@
 
 <script>
   import { _ } from '../../main';
-  import { base } from '@panomc/sdk/svelte';
   import { Date } from '@panomc/sdk/components/panel';
 
   export let slider;

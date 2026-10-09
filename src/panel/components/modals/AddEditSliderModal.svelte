@@ -262,8 +262,7 @@
 
 <script>
   import { _, showSuccessToast, showErrorToast } from '../../../main';
-  import ApiUtil from '@panomc/sdk/utils/api';
-  import { base } from '@panomc/sdk/svelte';
+  import { api } from '@panomc/sdk/plugin-api';
   import { DragAndDropZone } from '@panomc/sdk/components/panel';
 
   let fileInput;
@@ -294,7 +293,7 @@
     ($slider.imageUrl
       ? $slider.imageUrl.startsWith('http')
         ? $slider.imageUrl
-        : `${base}${$slider.imageUrl}`
+        : $slider.imageUrl
       : null);
 
   function handleFileError(event) {
@@ -353,7 +352,7 @@
 
     try {
       const isEdit = $mode === 'edit';
-      const path = isEdit ? `/api/panel/slider/items/${$slider.id}` : '/api/panel/slider/items';
+      const path = isEdit ? `/items/${$slider.id}` : '/items';
 
       const formData = new FormData();
       formData.append('title', $slider.title);
@@ -367,19 +366,19 @@
         formData.append('image', $selectedFile);
       }
 
-      const result = await ApiUtil[isEdit ? 'put' : 'post']({
+      const result = await api.panel[isEdit ? 'put' : 'post']({
         path,
         body: formData,
         headers: {}, // FormData automatically sets correct multi-part headers
       });
 
-      if (result.result === 'ok') {
+      if (!result.error) {
         showSuccessToast(isEdit ? $_('toasts.item-updated') : $_('toasts.item-created'));
         hide();
         callback();
       } else {
         showErrorToast($_('toasts.save-failed'), {
-          values: { error: result.error },
+          values: { error: result.error.message || result.error.code },
         });
       }
     } catch (e) {

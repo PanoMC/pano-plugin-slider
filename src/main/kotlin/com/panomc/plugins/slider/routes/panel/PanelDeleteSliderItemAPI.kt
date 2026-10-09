@@ -15,8 +15,8 @@ import com.panomc.plugins.slider.log.DeletedSliderItemLog
 import com.panomc.plugins.slider.permission.ManageSliderPermission
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
-import io.vertx.ext.web.validation.builder.Parameters.param
-import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
+import com.panomc.platform.schema.dsl.Parameters.param
+import com.panomc.platform.schema.dsl.ValidationHandlerBuilder
 import io.vertx.json.schema.SchemaRepository
 import io.vertx.json.schema.common.dsl.Schemas.numberSchema
 import java.io.File
@@ -26,7 +26,7 @@ class PanelDeleteSliderItemAPI(
     private val plugin: SliderPlugin,
     private val sliderDao: SliderDao
 ) : PanelApi() {
-    override val paths = listOf(Path("/api/panel/slider/items/:id", RouteType.DELETE))
+    override val paths = listOf(Path("/items/:id", RouteType.DELETE))
 
     private val authProvider by lazy {
         plugin.applicationContext.getBean(AuthProvider::class.java)

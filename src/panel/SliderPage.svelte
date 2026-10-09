@@ -376,7 +376,8 @@
 </article>
 
 <script context="module">
-  import ApiUtil, {buildQueryParams} from '@panomc/sdk/utils/api';
+  import { buildQueryParams } from '@panomc/sdk/utils/api';
+  import { api } from '@panomc/sdk/plugin-api';
 
   /**
    * @type {import("@sveltejs/kit").PageLoad}
@@ -394,19 +395,19 @@
     let sliderItems = [];
     let settings = { renderHook: 'page:home:top', homepageOnly: true };
 
-    await ApiUtil.get({
-      path: '/api/panel/slider/items',
+    await api.panel.get({
+      path: '/items',
       handler: (body) => {
-        if (body.result === 'ok') {
-          sliderItems = body.sliderItems;
+        if (!body.error) {
+          sliderItems = body.items;
         }
       },
     });
 
-    await ApiUtil.get({
-      path: '/api/panel/slider/settings',
+    await api.panel.get({
+      path: '/settings',
       handler: (body) => {
-        if (body.result === 'ok') {
+        if (!body.error) {
           settings = body.settings;
         }
       },
@@ -467,16 +468,16 @@
   async function onSaveSettings() {
     savingSettings = true;
     try {
-      const result = await ApiUtil.post({
-        path: '/api/panel/slider/settings',
+      const result = await api.panel.post({
+        path: '/settings',
         body: settings,
       });
 
-      if (result.result === 'ok') {
+      if (!result.error) {
         showSuccessToast($_('toasts.settings-save-success'));
         initialSettingsStr = JSON.stringify(settings);
       } else {
-        showErrorToast(result.error || 'Error saving settings');
+        showErrorToast(result.error.message || result.error.code || 'Error saving settings');
       }
     } catch (e) {
       console.error(e);
@@ -530,12 +531,12 @@
     draggedId = null;
 
     const ids = data.sliderItems.map((item) => item.id);
-    const res = await ApiUtil.post({
-      path: '/api/panel/slider/items/reorder',
+    const res = await api.panel.post({
+      path: '/items/reorder',
       body: { ids },
     });
 
-    if (res.result === 'ok') {
+    if (!res.error) {
       showSuccessToast($_('toasts.reorder-success'));
       await refreshData();
     }

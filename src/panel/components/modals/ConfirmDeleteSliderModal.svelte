@@ -69,7 +69,7 @@
 
 <script>
   import { _, showSuccessToast, showErrorToast } from '../../../main';
-  import ApiUtil from '@panomc/sdk/utils/api';
+  import { api } from '@panomc/sdk/plugin-api';
 
   $: loading = $loadingStore;
 
@@ -77,16 +77,16 @@
     $loadingStore = true;
 
     try {
-      const result = await ApiUtil.delete({
-        path: `/api/panel/slider/items/${$slider.id}`,
+      const result = await api.panel.delete({
+        path: `/items/${$slider.id}`,
       });
 
-      if (result.result === 'ok') {
+      if (!result.error) {
         showSuccessToast($_('toasts.item-deleted'));
         hide();
         callback();
       } else {
-        showErrorToast($_('toasts.delete-failed'), { values: { error: result.error } });
+        showErrorToast($_('toasts.delete-failed'), { values: { error: result.error.message || result.error.code } });
       }
     } catch (e) {
       console.error(e);

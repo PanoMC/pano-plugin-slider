@@ -9,7 +9,7 @@ import com.panomc.plugins.slider.db.dao.SliderSettingsDao
 import com.panomc.plugins.slider.permission.ManageSliderPermission
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
-import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
+import com.panomc.platform.schema.dsl.ValidationHandlerBuilder
 import io.vertx.json.schema.SchemaRepository
 
 @Endpoint
@@ -17,7 +17,7 @@ class PanelGetSliderSettingsAPI(
     private val plugin: SliderPlugin,
     private val sliderSettingsDao: SliderSettingsDao
 ) : PanelApi() {
-    override val paths = listOf(Path("/api/panel/slider/settings", RouteType.GET))
+    override val paths = listOf(Path("/settings", RouteType.GET))
 
     private val authProvider by lazy {
         plugin.applicationContext.getBean(AuthProvider::class.java)

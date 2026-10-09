@@ -15,7 +15,7 @@ import com.panomc.plugins.slider.permission.ManageSliderPermission
 import io.vertx.core.json.JsonObject
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
-import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
+import com.panomc.platform.schema.dsl.ValidationHandlerBuilder
 import io.vertx.json.schema.SchemaRepository
 import io.vertx.json.schema.common.dsl.Schemas.arraySchema
 import io.vertx.json.schema.common.dsl.Schemas.numberSchema
@@ -26,7 +26,7 @@ class PanelReorderSliderItemsAPI(
     private val plugin: SliderPlugin,
     private val sliderDao: SliderDao
 ) : PanelApi() {
-    override val paths = listOf(Path("/api/panel/slider/items/reorder", RouteType.POST))
+    override val paths = listOf(Path("/items/reorder", RouteType.POST))
 
     private val authProvider by lazy {
         plugin.applicationContext.getBean(AuthProvider::class.java)
@@ -39,7 +39,7 @@ class PanelReorderSliderItemsAPI(
     override fun getValidationHandler(schemaRepository: SchemaRepository): ValidationHandler =
         ValidationHandlerBuilder.create(schemaRepository)
             .body(
-                io.vertx.ext.web.validation.builder.Bodies.json(
+                com.panomc.platform.schema.dsl.Bodies.json(
                     objectSchema()
                         .requiredProperty("ids", arraySchema().items(numberSchema()))
                 )
