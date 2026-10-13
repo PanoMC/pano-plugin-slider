@@ -106,14 +106,10 @@
     margin-bottom: 1.25rem;
   }
 
-  .slider-slider__caption {
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-  }
+  /* The caption's own geometry is NOT here but inline on the element (see the markup): plugin.css is layered, so for
+     every property Bootstrap's unlayered `.carousel-caption` also sets (left / right 15%, bottom, padding, centred text)
+     Bootstrap won. Only a server-rendered page hid that, because there the component's CSS is in the head unlayered as
+     well; arriving by a link showed Bootstrap's centred box. */
 
   .slider-slider__animate-up {
     animation: slider-fade-in-up 0.8s ease backwards;
@@ -172,7 +168,9 @@
                 <div class="slider-slider__overlay"></div>
               </div>
               {#if item.title || item.subtitle || item.linkUrl}
-                <div class="slider-slider__caption carousel-caption d-md-block">
+                <div
+                  class="slider-slider__caption carousel-caption d-md-block"
+                  style="left: 0; right: 0; bottom: 0; padding: 0; margin: 0; text-align: left;">
                   <div class="slider-slider__caption-box" style={getBoxStyle(settings)}>
                     {#if item.title}
                       {#if settings.titleTag === 'h1'}
