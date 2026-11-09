@@ -12,6 +12,7 @@ import com.panomc.plugins.slider.db.model.SliderItem
 import com.panomc.plugins.slider.log.UpdatedSliderItemLog
 import com.panomc.plugins.slider.permission.ManageSliderPermission
 import com.panomc.plugins.slider.util.SliderImageFiles
+import com.panomc.plugins.slider.util.SliderLinks
 import io.vertx.core.Handler
 import io.vertx.ext.web.FileUpload
 import io.vertx.ext.web.RoutingContext
@@ -94,7 +95,7 @@ class PanelUpdateSliderItemAPI(
             subtitle = data.getString("subtitle"),
             imageUrl = imageUrl,
             imageFileName = imageFileName,
-            linkUrl = data.getString("linkUrl") ?: "",
+            linkUrl = SliderLinks.checked(data.getString("linkUrl")),
             openInNewTab = data.getBoolean("openInNewTab") ?: existingItem.openInNewTab,
             itemOrder = data.getInteger("itemOrder") ?: existingItem.itemOrder,
             active = data.getBoolean("active") ?: existingItem.active,

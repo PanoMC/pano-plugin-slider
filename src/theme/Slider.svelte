@@ -190,9 +190,9 @@
                         {item.subtitle}
                       </p>
                     {/if}
-                    {#if item.linkUrl}
+                    {#if safeLink(item.linkUrl)}
                       <a
-                        href={item.linkUrl}
+                        href={safeLink(item.linkUrl)}
                         target={item.openInNewTab ? '_blank' : undefined}
                         rel={item.openInNewTab ? 'noopener noreferrer' : undefined}
                         class="link-secondary w-100 text-decoration-none">
@@ -331,6 +331,16 @@
   }
 
   let { sliderItems = [], settings = {}, hookName } = $props();
+
+  /**
+   * The slide link when it is an http(s) address, a path on the site or an anchor; anything else (javascript: and
+   * other schemes) gets no link.
+   * @param {string | null | undefined} link
+   */
+  function safeLink(link) {
+    const value = (link || '').trim();
+    return /^(https?:\/\/\S+|\/(?![/\\])\S*|#\S*)$/i.test(value) ? value : null;
+  }
 
   let shouldRender = $derived.by(() => {
     // If hook doesn't match, don't render
