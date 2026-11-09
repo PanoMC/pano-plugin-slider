@@ -11,7 +11,7 @@ import com.panomc.plugins.slider.db.dao.SliderDao
 import com.panomc.plugins.slider.db.model.SliderItem
 import com.panomc.plugins.slider.log.UpdatedSliderItemLog
 import com.panomc.plugins.slider.permission.ManageSliderPermission
-import com.panomc.plugins.slider.util.ImageUtil
+import com.panomc.plugins.slider.util.SliderImageFiles
 import io.vertx.core.Handler
 import io.vertx.ext.web.FileUpload
 import io.vertx.ext.web.RoutingContext
@@ -78,12 +78,13 @@ class PanelUpdateSliderItemAPI(
         var imageUrl = existingItem.imageUrl
 
         if (fileUpload != null) {
+            // Store (and check) the new image first, so a refused upload keeps the old one
+            imageFileName = saveUploadedFile(fileUpload)
             // Delete old file
             if (existingItem.imageFileName != null) {
                 File(plugin.uploadsDir, existingItem.imageFileName).delete()
                 File(File(plugin.uploadsDir, "thumbnails"), existingItem.imageFileName).delete()
             }
-            imageFileName = saveUploadedFile(fileUpload)
             imageUrl = ApiPaths.plugin(plugin.pluginId, "/items/image/$imageFileName")
         }
 
@@ -139,15 +140,6 @@ class PanelUpdateSliderItemAPI(
         return Successful()
     }
 
-    private fun saveUploadedFile(fileUpload: FileUpload): String {
-        val extension = fileUpload.fileName().split(".").last()
-        val fileName = "${System.currentTimeMillis()}-${fileUpload.uploadedFileName().split(File.separator).last()}.$extension"
-        val destFile = File(plugin.uploadsDir, fileName)
-
-        File(fileUpload.uploadedFileName()).copyTo(destFile, true)
-
-        ImageUtil.generateThumbnail(destFile, File(plugin.uploadsDir, "thumbnails"))
-
-        return fileName
-    }
+    private fun saveUploadedFile(fileUpload: FileUpload): String =
+        SliderImageFiles.store(fileUpload, plugin.uploadsDir)
 }
