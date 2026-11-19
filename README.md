@@ -35,4 +35,4 @@ Slider adds a large image slider to the top of your Pano home page. Show your la
 Questions or ideas? Join our [Discord](https://panomc.com/discord) or visit [panomc.com](https://panomc.com).
 
 ## 📄 License
-Released under the GPL-3.0 License.
+Released under the MIT License.
