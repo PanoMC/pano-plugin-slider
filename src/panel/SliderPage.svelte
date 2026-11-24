@@ -477,11 +477,11 @@
         showSuccessToast($_('toasts.settings-save-success'));
         initialSettingsStr = JSON.stringify(settings);
       } else {
-        showErrorToast(result.error.message || result.error.code || 'Error saving settings');
+        showErrorToast($_('toasts.settings-save-failed'));
       }
     } catch (e) {
       console.error(e);
-      showErrorToast('Error saving settings');
+      showErrorToast($_('toasts.settings-save-failed'));
     } finally {
       savingSettings = false;
     }

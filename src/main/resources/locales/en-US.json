@@ -2,13 +2,15 @@
   "toasts": {
     "reorder-success": "Order updated.",
     "settings-save-success": "Settings saved.",
-    "item-created": "Slider created.",
-    "item-updated": "Slider updated.",
-    "item-deleted": "Slider deleted.",
+    "item-created": "Slide created.",
+    "item-updated": "Slide updated.",
+    "item-deleted": "Slide deleted.",
     "save-failed": "An error occurred while saving: {error}",
     "delete-failed": "An error occurred while deleting: {error}",
     "image-size-error": "Image size is too large (Max 5MB)",
-    "image-type-error": "Invalid file type (Allowed: PNG, JPEG, GIF, WEBP)"
+    "image-type-error": "Invalid file type (Allowed: PNG, JPEG, GIF, WEBP)",
+    "settings-save-failed": "Could not save the settings.",
+    "unknown-error": "Unknown error"
   },
   "buttons": {
     "edit": "Edit",
@@ -27,7 +29,7 @@
       "title": "Slider",
       "description": "You can manage the homepage slider shown in the theme from here.",
       "add-slider": "Add Slide",
-      "count": "{count} Sliders",
+      "count": "{count, plural, one {# slide} other {# slides}}",
       "filters": {
         "all": "All",
         "active": "Active",
@@ -64,7 +66,7 @@
           "transition": "Transition Animation",
           "transition-help": "Determines the transition effect between slides.",
           "transition-slide": "Slide (Default)",
-          "transition-fade": "Crossfade (Fade)",
+          "transition-fade": "Crossfade",
           "title-tag": "Title Tag (SEO)",
           "title-color": "Title Color",
           "subtitle-color": "Subtitle Color",
@@ -93,8 +95,8 @@
     },
     "modals": {
       "add-edit-slider": {
-        "add-title": "Create Slider",
-        "edit-title": "Edit Slider",
+        "add-title": "Create Slide",
+        "edit-title": "Edit Slide",
         "fields": {
           "title": "Title",
           "subtitle": "Subtitle",
@@ -108,22 +110,22 @@
         "image-format-info": "Allowed: PNG, JPEG, GIF, WEBP. Maximum: 5MB."
       },
       "confirm-delete-slider": {
-        "title": "Delete Slider",
-        "description": "Are you sure you want to delete the slider titled {title}? This action cannot be undone."
+        "title": "Delete Slide",
+        "description": "Are you sure you want to delete the slide titled {title}? This action cannot be undone."
       }
     }
   },
   "permissions": {
     "MANAGE_SLIDER": {
       "title": "Manage Slider",
-      "description": "Can create, delete, edit slider which will be shown in theme."
+      "description": "Can create, edit and delete the slides shown in the theme."
     }
   },
   "activity-logs": {
-    "CREATED_SLIDER_ITEM": "<b>{username}</b> created the \"{title}\" slider.",
-    "UPDATED_SLIDER_ITEM": "<b>{username}</b> updated the \"{title}\" slider.",
-    "DELETED_SLIDER_ITEM": "<b>{username}</b> deleted the \"{title}\" slider.",
+    "CREATED_SLIDER_ITEM": "<b>{username}</b> created the \"{title}\" slide.",
+    "UPDATED_SLIDER_ITEM": "<b>{username}</b> updated the \"{title}\" slide.",
+    "DELETED_SLIDER_ITEM": "<b>{username}</b> deleted the \"{title}\" slide.",
     "UPDATED_SLIDER_SETTINGS": "<b>{username}</b> updated slider settings.",
-    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> reordered slider."
+    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> reordered the slides."
   }
 }

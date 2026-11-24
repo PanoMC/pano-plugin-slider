@@ -149,7 +149,7 @@
                 data-bs-slide-to={i}
                 class:active={i === 0}
                 aria-current={i === 0 ? 'true' : 'false'}
-                aria-label={$_('components.slider.slide', { index: i + 1 })}></button>
+                aria-label={$_('components.slider.slide', { values: { index: i + 1 } })}></button>
             {/each}
           </div>
         {/if}

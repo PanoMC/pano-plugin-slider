@@ -377,13 +377,15 @@
         hide();
         callback();
       } else {
-        showErrorToast($_('toasts.save-failed'), {
-          values: { error: result.error.message || result.error.code },
-        });
+        showErrorToast(
+          $_('toasts.save-failed', {
+            values: { error: result.error.message || $_('toasts.unknown-error') },
+          }),
+        );
       }
     } catch (e) {
       console.error(e);
-      showErrorToast($_('toasts.save-failed'), { values: { error: e.message } });
+      showErrorToast($_('toasts.save-failed', { values: { error: e.message || $_('toasts.unknown-error') } }));
     } finally {
       $loadingStore = false;
     }

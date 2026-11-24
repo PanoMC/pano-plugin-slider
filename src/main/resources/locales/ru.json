@@ -2,13 +2,15 @@
     "toasts": {
         "reorder-success": "Порядок обновлен.",
         "settings-save-success": "Настройки сохранены.",
-        "item-created": "Слайдер создан.",
-        "item-updated": "Слайдер обновлен.",
-        "item-deleted": "Слайдер удален.",
+        "item-created": "Слайд создан.",
+        "item-updated": "Слайд обновлен.",
+        "item-deleted": "Слайд удален.",
         "save-failed": "Произошла ошибка при сохранении: {error}",
         "delete-failed": "Произошла ошибка при удалении: {error}",
-        "image-size-error": "Размер изображения слишком большой (Макс. 5MB)",
-        "image-type-error": "Неверный тип файла (Допустимы: PNG, JPEG, GIF, WEBP)"
+        "image-size-error": "Размер изображения слишком большой (макс. 5 МБ)",
+        "image-type-error": "Неверный тип файла (допустимы: PNG, JPEG, GIF, WEBP)",
+        "settings-save-failed": "Не удалось сохранить настройки.",
+        "unknown-error": "Неизвестная ошибка"
     },
     "buttons": {
         "edit": "Редактировать",
@@ -27,7 +29,7 @@
             "title": "Слайдер",
             "description": "Здесь вы можете управлять слайдером на главной странице темы.",
             "add-slider": "Добавить слайд",
-            "count": "{count} Слайдов",
+            "count": "{count, plural, one {# слайд} few {# слайда} many {# слайдов} other {# слайда}}",
             "filters": {
                 "all": "Все",
                 "active": "Активные",
@@ -63,8 +65,8 @@
                     "controls-help": "Показывать стрелки вперед/назад по бокам.",
                     "transition": "Анимация перехода",
                     "transition-help": "Определяет эффект перехода между слайдами.",
-                    "transition-slide": "Слайд (По умолчанию)",
-                    "transition-fade": "Затухание (Fade)",
+                    "transition-slide": "Слайд (по умолчанию)",
+                    "transition-fade": "Затухание",
                     "title-tag": "Тег заголовка (SEO)",
                     "title-color": "Цвет заголовка",
                     "subtitle-color": "Цвет подзаголовка",
@@ -74,12 +76,12 @@
                     "caption-style": "Стиль подписи",
                     "caption-style-none": "Нет",
                     "caption-style-solid": "Сплошной цвет",
-                    "caption-style-glass": "Стекломорфизм (Размытие)",
+                    "caption-style-glass": "Стекломорфизм (размытие)",
                     "caption-style-gradient": "Градиент"
                 },
                 "locations": {
-                    "home-top": "Верх главной страницы (Стандарт)",
-                    "page-top": "Верх всех страниц (После меню)"
+                    "home-top": "Верх главной страницы (стандарт)",
+                    "page-top": "Верх всех страниц (после меню)"
                 }
             }
         }
@@ -93,8 +95,8 @@
         },
         "modals": {
             "add-edit-slider": {
-                "add-title": "Создать слайдер",
-                "edit-title": "Редактировать слайдер",
+                "add-title": "Создать слайд",
+                "edit-title": "Редактировать слайд",
                 "fields": {
                     "title": "Заголовок",
                     "subtitle": "Подзаголовок",
@@ -108,21 +110,21 @@
                 "image-format-info": "Допустимо: PNG, JPEG, GIF, WEBP. Максимум: 5MB."
             },
             "confirm-delete-slider": {
-                "title": "Удалить слайдер",
-                "description": "Вы уверены, что хотите удалить слайдер \"{title}\"? Это действие нельзя отменить."
+                "title": "Удалить слайд",
+                "description": "Вы уверены, что хотите удалить слайд \"{title}\"? Это действие нельзя отменить."
             }
         }
     },
     "permissions": {
         "MANAGE_SLIDER": {
             "title": "Управление слайдером",
-            "description": "Может создавать, удалять, редактировать слайдер, который будет показан в теме."
+            "description": "Может создавать, редактировать и удалять слайды, которые показываются в теме."
         }
     },
     "activity-logs": {
-        "CREATED_SLIDER_ITEM": "<b>{username}</b> создал слайдер \"{title}\".",
-        "UPDATED_SLIDER_ITEM": "<b>{username}</b> обновил слайдер \"{title}\".",
-        "DELETED_SLIDER_ITEM": "<b>{username}</b> удалил слайдер \"{title}\".",
+        "CREATED_SLIDER_ITEM": "<b>{username}</b> создал слайд \"{title}\".",
+        "UPDATED_SLIDER_ITEM": "<b>{username}</b> обновил слайд \"{title}\".",
+        "DELETED_SLIDER_ITEM": "<b>{username}</b> удалил слайд \"{title}\".",
         "UPDATED_SLIDER_SETTINGS": "<b>{username}</b> обновил настройки слайдера.",
         "REORDERED_SLIDER_ITEMS": "<b>{username}</b> изменил порядок слайдов."
     }

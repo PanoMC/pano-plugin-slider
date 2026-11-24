@@ -8,7 +8,9 @@
     "save-failed": "Kaydedilirken bir hata oluştu: {error}",
     "delete-failed": "Silinirken bir hata oluştu: {error}",
     "image-size-error": "Görsel boyutu çok büyük (Maks 5MB)",
-    "image-type-error": "Geçersiz dosya türü (İzin verilenler: PNG, JPEG, GIF, WEBP)"
+    "image-type-error": "Geçersiz dosya türü (İzin verilenler: PNG, JPEG, GIF, WEBP)",
+    "settings-save-failed": "Ayarlar kaydedilemedi.",
+    "unknown-error": "Bilinmeyen hata"
   },
   "buttons": {
     "edit": "Düzenle",
@@ -27,18 +29,18 @@
       "title": "Slaytlar",
       "description": "Temada görüntülenecek olan ana sayfa slaytlarını buradan yönetebilirsiniz.",
       "add-slider": "Slayt Ekle",
-      "count": "{count} Slayt",
+      "count": "{count} slayt",
       "filters": {
         "all": "Tümü",
-        "active": "Aktif",
-        "inactive": "Pasif"
+        "active": "Etkin",
+        "inactive": "Devre dışı"
       },
       "table": {
         "content": "İçerik",
         "order": "Sıra",
         "status": "Durum",
-        "status-active": "Aktif",
-        "status-inactive": "Pasif",
+        "status-active": "Etkin",
+        "status-inactive": "Devre dışı",
         "created-at": "Oluşturulma",
         "updated-at": "Güncelleme",
         "actions": "İşlemler",
@@ -64,7 +66,7 @@
           "transition": "Geçiş Animasyonu",
           "transition-help": "Slaytlar arasındaki geçiş efektini belirler.",
           "transition-slide": "Sağdan Kayarak (Varsayılan)",
-          "transition-fade": "Sönerek (Fade)",
+          "transition-fade": "Sönerek",
           "title-tag": "Başlık Etiketi (SEO)",
           "title-color": "Başlık Rengi",
           "subtitle-color": "Alt Başlık Rengi",
@@ -121,9 +123,9 @@
   },
   "activity-logs": {
     "CREATED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slayt oluşturdu.",
-    "UPDATED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slayt güncelledi.",
-    "DELETED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slayt sildi.",
+    "UPDATED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slaytı güncelledi.",
+    "DELETED_SLIDER_ITEM": "<b>{username}</b> \"{title}\" başlıklı slaytı sildi.",
     "UPDATED_SLIDER_SETTINGS": "<b>{username}</b> slayt ayarlarını güncelledi.",
-    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> slayt yeniden sıraladı."
+    "REORDERED_SLIDER_ITEMS": "<b>{username}</b> slaytları yeniden sıraladı."
   }
 }
